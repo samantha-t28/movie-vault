@@ -48,6 +48,11 @@ The application will be using client-server architecture. The server will handle
 * Gets the response from OMDB.
 * Server then sends the response back to the client.
 
+`Interaction Flow Chart Diagram`:
+
+![interaction-flow-chart](https://github.com/samantha-t28/the-movie-vault-app/assets/96286575/1a54c126-804b-4200-9998-0a7accbb5bd2)
+
+
 ## Technical Requirements
 
 ### 1. Languages
