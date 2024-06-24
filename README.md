@@ -102,9 +102,9 @@ Toggle Light/Dark Theme:
 * **Transition Effect**: Smoothly fades the background color within 0.3 seconds allows for a less abrupt and more visually pleasing effect.
 
 Bookmark / Favorites Icon:
-	* Ability to save movies in their “favorites” list.
-	* Favorite movie thumbnails (icon) appears in the navigation bar. Ability to add and remove from favorites.
-	* Use local storage to store favorites data.	
+* Ability to save movies in their “favorites” list.
+* Favorite movie thumbnails (icon) appears in the navigation bar. Ability to add and remove from favorites.
+* Use local storage to store favorites data.	
 
 ### 5. Pagination
 Implement pagination for movie listings.
