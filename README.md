@@ -30,7 +30,7 @@ The application will be using client-server architecture. The server will handle
 
 ### Client-Side
 * **Technologies**: HTML, CSS, JavaScript
-* **Framework**: React
+* **Library**: React
 
 ### Server-Side
 * **Technologies**: Node.js, Express.js
@@ -80,18 +80,19 @@ Upon loading the website, the page will automatically fetch and display a list o
 * **User Interaction**: Clicking on a movie thumbnail will provide more detailed information about the movie.
 
 ### 2. Favorites Page
-A dedicated page where users can view their list of favorite movies.
+A dialog component (modal) for users to view their list of favorite movies.
 
 * Display all movies that the user has marked as favorites.
-* Allow users to remove movies from the favorites list.
+* Allow users to remove movies from the favorites list by clicking the favorites icon on the movie thumbnail.
 
 ### 3. Movies Page
 A seperate page that displays movie information (title, year, plot, ratings, director, and runtime).
 
-### 4. Navigation Bar
+### 4. Header
 
 Navigation:
 * Buttons for accessing different pages.
+* Modal for viewing the list of favorite movies.
 
 Search input field:
 * Display search results dynamically as the user types.
@@ -118,11 +119,7 @@ Implement pagination for movie listings.
 * **Prevent API Key Exposure**: The OMDB API key must be stored in an environment variable. This is to observe security best practices.
 
 ### 2. Usability Best Practices
+* Accessibility (alt text for screen readers)
 * Navigation bar
 * Search bar
 * Responsiveness (e.g., desktops, tablets, and mobile)
-
-
-
-
-
