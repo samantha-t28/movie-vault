@@ -71,8 +71,8 @@
 			</header>
 		</div>
 		<main class="main-content" role="main">
-			<section class="movies" aria-labelledby="featured-movies-title">
-				<h2 class="movies__title">Featured movies</h2>
+			<section class="movies" aria-labelledby="search-results-title">
+				<h2 class="movies__title">Search results for "Inception":</h2>
 				<div class="movies__grid">
 					<div class="movie-card">
 						<div class="movie-card__image">
@@ -284,6 +284,16 @@
 					</div>
 				</div>
 			</section>
+			<!-- Pagination Controls -->
+			<div class="pagination">
+				<button class="pagination__button" id="prevPage">
+					<i class="fas fa-arrow-left"></i>
+				</button>
+				<span class="pagination__info" id="pageInfo">Page 1 of 1</span>
+				<button class="pagination__button" id="nextPage">
+					<i class="fas fa-arrow-right"></i>
+				</button>
+			</div>
 		</main>
 		<script src="script/main.js"></script>
 	</body>
