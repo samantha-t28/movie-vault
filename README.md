@@ -170,9 +170,9 @@ You can use curly braces to include JavaScript logic, such as if statements or t
 ```javascript
 const isLoggedIn = true;
 const greeting = (
-	<div>
-		{isLoggedIn ? <p>Welcome back!</p> : <p>Please log in.</p>}
-	</div>
+   <div>
+      {isLoggedIn ? <p>Welcome back!</p> : <p>Please log in.</p>}
+   </div>
 );
 ```
 
@@ -200,16 +200,16 @@ const greeting = (
 // Correct way in JSX:
 return (
    <div>
-	  <div></div>
-	  <div></div>
+     <div></div>
+     <div></div>
    </div>
 );
 
 // Or using a Fragment:
 return (
    <>
-	 <div></div>
-	 <div></div>
+     <div></div>
+     <div></div>
    </>
 );
 ```
