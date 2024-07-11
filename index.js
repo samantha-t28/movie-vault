@@ -1,4 +1,8 @@
 import express from 'express';
+import dotenv from 'dotenv';
+import fetch from 'node-fetch';
+
+dotenv.config();
 
 const app = express();
 const port = 3000;
@@ -8,21 +12,23 @@ app.get('/api', searchHandler);
 
 async function searchHandler(request, response) {
 	try {
-		const omdbResponse = await fetch(
-			`http://www.omdbapi.com/?s=avatar&apikey=${process.env.OMDB_API_KEY}&type=movie`,
+		const tmdbResponse = await fetch(
+			`https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&query=avatar`,
 			{
 				method: 'GET',
 				headers: { 'Content-Type': 'application/json' }
 			}
 		);
-		const omdbResponseJSON = await omdbResponse.json();
-		console.log(omdbResponseJSON);
-		response.send(omdbResponseJSON);
+		const tmdbResponseJSON = await tmdbResponse.json();
+		console.log(tmdbResponseJSON);
+		response.send(tmdbResponseJSON);
 	} catch (error) {
-		response.send('error');
+		response.send(
+			'An error occured while attempting to fetch the TMDB API.'
+		);
 	}
 }
 
 app.listen(port, () => {
-	console.log(`Example app listening on port ${port}`);
+	console.log(`Listening on port ${port}`);
 });
