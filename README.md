@@ -38,7 +38,7 @@ The application will be using client-server architecture. The server will handle
 ### Server-Side
 
 -   **Technologies**: Node.js, Express.js
--   **Proxy Server**: Express.js to handle API requests and secure the OMDBI API key.
+-   **Proxy Server**: Express.js to handle API requests and secure the TMDBI API key.
 -   **Environment Management**: Use environment variable to store API key.
 
 ### Interaction Flow
@@ -50,8 +50,8 @@ The application will be using client-server architecture. The server will handle
 
 ### 2. API Gateway Server
 
--   The server calls out to OMDB with an embeded API key (request).
--   Gets the response from OMDB.
+-   The server calls out to TMDB with an embeded API key (request).
+-   Gets the response from TMDB.
 -   Server then sends the response back to the client.
 
 `Interaction Flow Chart Diagram`:
@@ -75,7 +75,7 @@ The application will be using client-server architecture. The server will handle
 
 ### 4. API Integration
 
--   The application will use the OMDB (Open Movie Database) API to fetch movie data.
+-   The application will use the TMDB (Open Movie Database) API to fetch movie data.
 
 ### 5. Hosting Environment
 
@@ -135,7 +135,7 @@ Implement pagination for movie listings.
 
 ### 1. Security
 
--   **Prevent API Key Exposure**: The OMDB API key must be stored in an environment variable. This is to observe security best practices.
+-   **Prevent API Key Exposure**: The TMDB API key must be stored in an environment variable. This is to observe security best practices.
 
 ### 2. Usability Best Practices
 
