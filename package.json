@@ -1,0 +1,33 @@
+{
+	"name": "movie-vault",
+	"version": "1.0.0",
+	"description": "movie vault api app",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "nodemon index.js"
+	},
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/samantha-t28/movie-vault.git"
+	},
+	"keywords": [
+		"react",
+		"node.js"
+	],
+	"author": "samantha-t28",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/samantha-t28/movie-vault/issues"
+	},
+	"homepage": "https://github.com/samantha-t28/movie-vault#readme",
+	"dependencies": {
+		"dotenv": "^16.4.5",
+		"express": "^4.19.2",
+		"node-fetch": "^3.3.2"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.4"
+	}
+}
