@@ -240,3 +240,4 @@ const element = <div class="container">Hello</div>;
 // This is correct and avoids conflict
 const element = <div className="container">Hello</div>;
 ```
+
