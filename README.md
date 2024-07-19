@@ -240,4 +240,31 @@ const element = <div class="container">Hello</div>;
 // This is correct and avoids conflict
 const element = <div className="container">Hello</div>;
 ```
+## Setting Up TMDB API Key for Development
 
+1. Visit https://www.themoviedb.org/
+2. Create an account or log in if you already have one.
+3. In the settings menu, click "API".
+4. Click "Apply for API Key" and fill in the requirements of how you intend to use the API. Then click "submit form".
+5. After your application is approved, your API key will be displayed in the API section.
+
+**Note:** This project uses TMDB API v3.
+
+## Configure the API Key in Your Project
+
+1. In the root directory, create a new file named '.env'.
+2. Open the '.env' file and add the following line:
+```bash
+TMDB_API_KEY=your_api_key
+```
+3. Replace `your_api_key` with the actual API key you copied from TMDB.
+4. Install `dotenv` package:
+```bash
+npm install dotenv
+```
+5. Load the environment variables at the beginning of your main file (e.g., `index.js`):
+```javascript
+import dotenv from 'dotenv';
+dotenv.config();
+```
+6. Access the API Key in your code, use `process.env.TMDB_API_KEY`.
