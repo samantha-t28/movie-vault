@@ -32,14 +32,14 @@ The application will be using client-server architecture. The server will handle
 
 ### Client-Side
 
--   **Technologies**: HTML, CSS, JavaScript
--   **Library**: React
+- **Technologies**: HTML, CSS, JavaScript
+- **Library**: React
 
 ### Server-Side
 
--   **Technologies**: Node.js, Express.js
--   **Proxy Server**: Express.js to handle API requests and secure the TMDBI API key.
--   **Environment Management**: Use environment variable to store API key.
+- **Technologies**: Node.js, Express.js
+- **Proxy Server**: Express.js to handle API requests and secure the TMDBI API key.
+- **Environment Management**: Use environment variable to store API key.
 
 ### Interaction Flow
 
@@ -268,3 +268,23 @@ import dotenv from 'dotenv';
 dotenv.config();
 ```
 6. Access the API Key in your code, use `process.env.TMDB_API_KEY`.
+
+## The Importance Of The `key` Property and Its Effect On React Lists?
+
+The key prop plays a crucial role in React as it helps manage lists of elements. It allows React to uniquely identify each element, ensuring that it can render properly in the DOM. By providing unique keys for each element, React can efficiently update and manage the elements in a list, leading to better performance and accurate rendering.
+
+The effect of the 'key' prop:
+
+* When new element is added to a list, React uses the keys to identify which elements have changed, been added or removed.
+* This allows React to update only the changed elements without re-rendering the entire list.
+
+#### Example:
+```javascript
+<ul>
+	<li key="1">Strawberry</li>
+	<li key="2">Grape</li>
+	<li key="3">Passion Fruit</li>
+	<li>Orange</li>
+</ul>
+```
+The `Orange` element does not have a key. As a result, React will re-render the entire list because it doesn't know that `Orange` is a new addition to the list.
