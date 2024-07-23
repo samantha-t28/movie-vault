@@ -1,11 +1,10 @@
-export const Movie = ({ title }) => {
+export const Movie = ({ title, image, year, rating }) => {
+	const imageUrl = `https://image.tmdb.org/t/p/w500${image}`;
+
 	return (
 		<div className="movie-card">
 			<div className="movie-card__image">
-				<img
-					src="/inception-movie-poster.png"
-					alt="Inception movie poster"
-				/>
+				<img src={imageUrl} alt="Inception movie poster" />
 				<button
 					className="movie-card__favorite"
 					aria-label="Add to favorites"
@@ -14,12 +13,14 @@ export const Movie = ({ title }) => {
 				</button>
 			</div>
 			<div className="movie-card__details">
-				<h3 className="movie-card__title">{title} (2010)</h3>
-				<p className="movie-card__genre">Action, Adventure, Sci-Fi</p>
+				<h3 className="movie-card__title">
+					{title} {year}
+				</h3>
 				<div
 					className="movie-card__rating"
 					aria-label="4 stars out of 5"
 				>
+					{rating}
 					★★★★☆
 				</div>
 			</div>

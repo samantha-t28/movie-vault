@@ -6,13 +6,13 @@ dotenv.config();
 const app = express();
 const port = 3000;
 
-// POST method route
+// GET method route
 app.get('/api', searchHandler);
 
 async function searchHandler(request, response) {
 	try {
 		const tmdbResponse = await fetch(
-			`https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&query=avatar`,
+			`https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&query=inception`,
 			{
 				method: 'GET',
 				headers: { 'Content-Type': 'application/json' }
@@ -22,9 +22,9 @@ async function searchHandler(request, response) {
 		console.log(tmdbResponseJSON);
 		response.send(tmdbResponseJSON);
 	} catch (error) {
-		response.send(
-			'An error occured while attempting to fetch the TMDB API.'
-		);
+		response
+			.status(500)
+			.send('An error occured while attempting to fetch the TMDB API.');
 	}
 }
 

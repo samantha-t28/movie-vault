@@ -269,7 +269,7 @@ dotenv.config();
 ```
 6. Access the API Key in your code, use `process.env.TMDB_API_KEY`.
 
-## The Importance Of The `key` Property and Its Effect On React Lists?
+## The Importance Of The `key` Property and Its Effect On React Lists
 
 The key prop plays a crucial role in React as it helps manage lists of elements. It allows React to uniquely identify each element, ensuring that it can render properly in the DOM. By providing unique keys for each element, React can efficiently update and manage the elements in a list, leading to better performance and accurate rendering.
 

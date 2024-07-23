@@ -1,28 +1,23 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { Movie } from './movie';
-async function getServer() {
-	try {
-		const response = await fetch(`/api`, {
-			method: 'GET',
-			headers: { 'Content-Type': 'application/json' }
-		});
-		const textResponse = await response.json();
-		console.log(textResponse);
-		return textResponse;
-	} catch (error) {
-		return `An error happened when attempting to fetch {SERVER_ENDPOINT}. Error message: ${error}`;
-	}
-}
+
 function App() {
+	const [movies, setMovies] = useState([]);
+
 	// const movies = await getServer();
 	useEffect(() => {
+		fetch('/api')
+			.then(response => response.json())
+			.then(data => setMovies(data.results || []))
+			.catch(error => console.error('Error fetching movies:', error));
+
 		console.log('hello');
 	}, []);
 
 	return (
 		<>
-			<body className="theme--light">
+			<div className="theme--light">
 				<div className="header-wrapper">
 					<header className="header">
 						<div className="header__logo">
@@ -95,12 +90,19 @@ function App() {
 					>
 						<h2 className="movies__title">Featured movies</h2>
 						<div className="movies__grid">
-							<Movie title="Inception" />
-							<Movie title="Avatar" />
+							{movies.map(movie => (
+								<Movie
+									key={movie.id}
+									title={movie.title}
+									year={movie.release_date.split('-')[0]}
+									image={movie.poster_path}
+									rating={movie.vote_average}
+								/>
+							))}
 						</div>
 					</section>
 				</main>
-			</body>
+			</div>
 		</>
 	);
 }
