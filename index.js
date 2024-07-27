@@ -12,7 +12,7 @@ app.get('/api', searchHandler);
 async function searchHandler(request, response) {
 	try {
 		const tmdbResponse = await fetch(
-			`https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&query=inception`,
+			`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`,
 			{
 				method: 'GET',
 				headers: { 'Content-Type': 'application/json' }
@@ -22,9 +22,10 @@ async function searchHandler(request, response) {
 		console.log(tmdbResponseJSON);
 		response.send(tmdbResponseJSON);
 	} catch (error) {
+		console.error('Error fetching movies:', error);
 		response
 			.status(500)
-			.send('An error occured while attempting to fetch the TMDB API.');
+			.send('An error occurred while attempting to fetch the TMDB API.');
 	}
 }
 

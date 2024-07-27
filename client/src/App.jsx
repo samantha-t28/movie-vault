@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { Movie } from './movie';
+import { Movie } from './MovieFeaturedList';
 
 function App() {
 	const [movies, setMovies] = useState([]);
@@ -96,7 +96,7 @@ function App() {
 									title={movie.title}
 									year={movie.release_date.split('-')[0]}
 									image={movie.poster_path}
-									rating={movie.vote_average}
+									rating={movie.vote_average.toFixed(1)}
 								/>
 							))}
 						</div>
