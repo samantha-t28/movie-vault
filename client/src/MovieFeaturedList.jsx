@@ -6,7 +6,6 @@ export const Movie = ({ title, image, year, rating }) => {
 		<div className="movie-card">
 			<div className="movie-card__image">
 				{/* If imageUrl is available, display the image. Otherwise, show a "Image not available" message with the "no-image" CSS style */}
-
 				{imageUrl ? (
 					<img src={imageUrl} alt={`${title} movie poster`} />
 				) : (
