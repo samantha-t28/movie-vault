@@ -8,6 +8,7 @@ export const Header = ({ onSearch }) => {
 	};
 
 	const handleSearch = async event => {
+		// Prevent default form submission to avoid page reload
 		event.preventDefault();
 		if (!searchQuery.trim()) {
 			return;
