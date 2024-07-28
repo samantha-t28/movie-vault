@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import { Movie } from './MovieFeaturedList';
+import { Pagination } from './Pagination';
+import './App.css';
+// import Slider from 'react-slick';
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
 
 function App() {
 	const [movies, setMovies] = useState([]);
+	const [currentPage, setCurrentPage] = useState(1);
+	const moviesPerPage = 8;
 
 	// const movies = await getServer();
 	useEffect(() => {
@@ -14,6 +20,14 @@ function App() {
 
 		console.log('hello');
 	}, []);
+
+	// // Pagination
+	const indexOfLastMovie = currentPage * moviesPerPage;
+	const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
+	const currentMovies = movies.slice(indexOfFirstMovie, indexOfLastMovie);
+
+	// Page change
+	const paginate = pageNumber => setCurrentPage(pageNumber);
 
 	return (
 		<>
@@ -90,7 +104,7 @@ function App() {
 					>
 						<h2 className="movies__title">Featured movies</h2>
 						<div className="movies__grid">
-							{movies.map(movie => (
+							{currentMovies.map(movie => (
 								<Movie
 									key={movie.id}
 									title={movie.title}
@@ -99,6 +113,14 @@ function App() {
 									rating={movie.vote_average.toFixed(1)}
 								/>
 							))}
+						</div>
+						<div>
+							<Pagination
+								moviesPerPage={moviesPerPage}
+								totalMovies={movies.length}
+								paginate={paginate}
+								currentPage={currentPage}
+							/>
 						</div>
 					</section>
 				</main>
