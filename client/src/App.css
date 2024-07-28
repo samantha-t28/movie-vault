@@ -7,8 +7,8 @@
 	--toggle-bg-color: #ccc;
 	--toggle-slider-color: rgb(53, 53, 53);
 	--logo-color: #000000;
-	--image-frame-color: #ededed;
-	--favorite-icon-color: #45269b;
+	--movie-card-bg-color: #ededed;
+	--favorite-icon-inactive-color: #45269b;
 	--favorite-icon-active-color: #df1212;
 	--pagination-control-color: #1b1b1b;
 	--pagination-border-color: #a5a5a5;
@@ -24,7 +24,7 @@ body.theme--dark {
 	--toggle-slider-color: #fff;
 	--dark-body-bg-color: #060913;
 	--logo-color: #ffffff;
-	--image-frame-color: #101326;
+	--movie-card-bg-color: #101326;
 	--pagination-control-color: #f7f7f7;
 }
 
@@ -246,15 +246,15 @@ body {
 .movie-card {
 	/* width: 260px;
 	height: 463px; */
-	background-color: var(--image-frame-color);
+	background-color: var(--movie-card-bg-color);
 	overflow: hidden;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.28);
 	position: relative;
+	transition: background-color 0.3s ease-in-out;
 }
 
 .movie-card__image {
 	padding: 10px;
-	background-color: var(--image-frame-color);
 	position: relative;
 	overflow: hidden;
 	transition: background-color 0.3s ease-in-out;
@@ -286,7 +286,7 @@ body {
 	top: 1.5rem;
 	right: 1.5rem;
 	background: rgba(255, 255, 255, 0.7);
-	color: var(--favorite-icon-color);
+	color: var(--favorite-icon-inactive-color);
 	padding: 0.2rem 0.5rem;
 	border-radius: 50%;
 	border: none;
@@ -301,17 +301,14 @@ body {
 }
 
 .movie-card__details {
-	padding: 0 13px 11px;
-	background-color: var(--image-frame-color);
+	padding: 10px 12px 18px;
+	max-height: 100px;
 	transition: background-color 0.3s ease-in-out;
+	word-wrap: break-word;
 }
 
 .movie-card__title {
 	font-size: 1rem;
-}
-
-.movie-card__genre {
-	font-size: 0.9rem;
 }
 
 /***** Pagination Controls *****/

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { MovieFeaturedList } from './MovieFeaturedList';
-import { Pagination } from './Pagination';
-import { Header } from './Header';
+import { MovieCard } from './components/MovieCard';
+import { Pagination } from './components/Pagination';
+import { Header } from './components/Header';
 import './App.css';
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
 					<h2 className="movies__title">Featured movies</h2>
 					<div className="movies__grid">
 						{currentMovies.map(movie => (
-							<MovieFeaturedList
+							<MovieCard
 								key={movie.id}
 								title={movie.title}
 								year={movie.release_date.split('-')[0]}
