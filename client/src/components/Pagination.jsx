@@ -11,7 +11,7 @@ export const Pagination = ({
 		pageNumbers.push(i);
 	}
 	// Checks if current page is greater than 1.
-	//If true, call the paginate function with current page minus 1
+	// If true, call the paginate function with current page minus 1
 	const handlePrevClick = () => {
 		if (currentPage > 1) {
 			paginate(currentPage - 1);
