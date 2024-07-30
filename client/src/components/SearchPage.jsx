@@ -1,8 +1,16 @@
 import React from 'react';
 import { MovieCard } from './MovieCard';
 import { Header } from './Header';
+import { Pagination } from './Pagination';
 
-export const SearchPage = ({ searchResults, handleSearch }) => {
+export const SearchPage = ({
+	moviesPerPage,
+	paginate,
+	currentPage,
+	currentMovies,
+	searchResults,
+	handleSearch
+}) => {
 	return (
 		<>
 			<Header onSearch={handleSearch} />
@@ -13,7 +21,7 @@ export const SearchPage = ({ searchResults, handleSearch }) => {
 				>
 					<h2 className="movies__title">Search Results</h2>
 					<div className="movies__grid">
-						{searchResults.map(movie => (
+						{currentMovies.map(movie => (
 							<MovieCard
 								key={movie.id}
 								title={movie.title}
@@ -22,6 +30,14 @@ export const SearchPage = ({ searchResults, handleSearch }) => {
 								rating={movie.vote_average.toFixed(1)}
 							/>
 						))}
+					</div>
+					<div>
+						<Pagination
+							moviesPerPage={moviesPerPage}
+							totalMovies={searchResults.length}
+							paginate={paginate}
+							currentPage={currentPage}
+						/>
 					</div>
 				</section>
 			</main>
