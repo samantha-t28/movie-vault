@@ -288,3 +288,64 @@ The effect of the 'key' prop:
 </ul>
 ```
 The `Orange` element does not have a key. As a result, React will re-render the entire list because it doesn't know that `Orange` is a new addition to the list.
+
+# Development Dependencies for React Project
+
+`@react`
+
+React dependencies handles the following:
+
+- Manage state
+- Lifecycle Methods: mounting, updating, unmounting
+- Context: share data globally without passing props manually through every level.
+- Performance: useMemo and useCallback (Hooks) to memorize values and functions to avoid unnecessary re-renders.
+- Refs: Directly access and manipulate DOM elements or store mutable values.
+
+
+`@react-dom`
+
+- Provide methods to render React components into the DOM.
+- Updates the DOM when component state or props change.
+
+`@types/react`
+
+- Includes React core functionality such as creating components, managing state and props, lifecycle methods, hooks, and JSX.
+- Enables autocomplete and type checking to ensure the types of variables, function parameters, and return values match the expected types.
+
+`@types/react-dom`
+
+- Covers React DOM APIs such as rendering components to the DOM and handling events related to the DOM.
+
+`@vitejs/plugin-react`
+
+- A Vite plugin build tool that enables fast refresh in development.
+
+`@eslint`
+
+- Checks for errors such as typos in variable names or incorrect syntax.
+- Automates code formatting, such as correcting indentation or adding missing semicolons.
+
+`@eslint-plugin-react`
+
+- Plugin that enforces React best practices, such as ensuring components are named properly.
+
+`@eslint-plugin-react-hooks`
+
+- Checks that you've included all the necessary dependencies when you use Hooks like useEffect or useCallback.
+- Ensures that Hooks are at the top level of the function component, not inside loops, conditions, or nested functions.
+
+`@eslint-plugin-react-refresh`
+
+- Allows you to see changes instantly during development.
+Provides instant updates.
+
+`@vite`
+
+- Vite is a development build tool that provides an instant server start, allowing for fast project refreshes.
+- With Fast Hot Module Replacement, it allows you to see changes instantly in the browser as you edit your code.
+- Updates only the specific module that was changed, rather than reloading the entire page.
+
+`@nodemon`
+
+- Automatically restarts Node.js application when it detect file changes.
+- Eliminate the needs to manually stop and restart the server during development.
