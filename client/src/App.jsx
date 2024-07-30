@@ -53,6 +53,11 @@ function App() {
 					path="/search"
 					element={
 						<SearchPage
+							moviesPerPage={moviesPerPage}
+							movies={movies}
+							paginate={paginate}
+							currentPage={currentPage}
+							currentMovies={currentMovies}
 							searchResults={movies}
 							handleSearch={handleSearch}
 						/>

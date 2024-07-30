@@ -6,9 +6,9 @@ import { Pagination } from './Pagination';
 export const HomePage = ({
 	movies,
 	currentMovies,
+	currentPage,
 	moviesPerPage,
 	handleSearch,
-	currentPage,
 	paginate
 }) => {
 	return (
