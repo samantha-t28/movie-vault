@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const SearchBar = ({ onSearch }) => {
 	const [searchQuery, setSearchQuery] = useState('');
+	const navigate = useNavigate();
 
 	const handleInputChange = event => {
 		setSearchQuery(event.target.value);
@@ -30,6 +32,7 @@ export const SearchBar = ({ onSearch }) => {
 
 			const data = await response.json();
 			onSearch(data.results || []);
+			navigate('/search');
 		} catch (error) {
 			console.error('Error fetching search results:', error);
 		}
