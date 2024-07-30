@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { MovieCard } from './components/MovieCard';
-import { Pagination } from './components/Pagination';
-import { Header } from './components/Header';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HomePage } from './components/HomePage';
+import { SearchPage } from './components/SearchPage';
 import './App.css';
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
 	}, []);
 
 	const handleSearch = searchResults => {
+		console.log('Search Results:', searchResults);
 		setMovies(searchResults);
 		setCurrentPage(1); // Reset to first page on new search
 	};
@@ -33,36 +34,32 @@ function App() {
 	const paginate = pageNumber => setCurrentPage(pageNumber);
 
 	return (
-		<>
-			<Header onSearch={handleSearch} />
-			<main className="main-content" role="main">
-				<section
-					className="movies"
-					aria-labelledby="featured-movies-title"
-				>
-					<h2 className="movies__title">Featured movies</h2>
-					<div className="movies__grid">
-						{currentMovies.map(movie => (
-							<MovieCard
-								key={movie.id}
-								title={movie.title}
-								year={movie.release_date.split('-')[0]}
-								image={movie.poster_path}
-								rating={movie.vote_average.toFixed(1)}
-							/>
-						))}
-					</div>
-					<div>
-						<Pagination
+		<BrowserRouter>
+			<Routes>
+				<Route
+					path="/"
+					element={
+						<HomePage
+							movies={movies}
+							currentMovies={currentMovies}
 							moviesPerPage={moviesPerPage}
-							totalMovies={movies.length}
-							paginate={paginate}
 							currentPage={currentPage}
+							paginate={paginate}
+							handleSearch={handleSearch}
 						/>
-					</div>
-				</section>
-			</main>
-		</>
+					}
+				/>
+				<Route
+					path="/search"
+					element={
+						<SearchPage
+							searchResults={movies}
+							handleSearch={handleSearch}
+						/>
+					}
+				/>
+			</Routes>
+		</BrowserRouter>
 	);
 }
 
