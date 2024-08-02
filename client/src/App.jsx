@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HomePage } from './components/HomePage';
 import { SearchPage } from './components/SearchPage';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import './App.css';
+
+// Create a client
+const queryClient = new QueryClient();
 
 function App() {
 	const [movies, setMovies] = useState([]);
@@ -10,14 +15,6 @@ function App() {
 	const moviesPerPage = 8;
 
 	// const movies = await getServer();
-	useEffect(() => {
-		fetch('/api')
-			.then(response => response.json())
-			.then(data => setMovies(data.results || []))
-			.catch(error => console.error('Error fetching movies:', error));
-
-		console.log('hello');
-	}, []);
 
 	const handleSearch = searchResults => {
 		console.log('Search Results:', searchResults);
@@ -34,37 +31,40 @@ function App() {
 	const paginate = pageNumber => setCurrentPage(pageNumber);
 
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<HomePage
-							movies={movies}
-							currentMovies={currentMovies}
-							moviesPerPage={moviesPerPage}
-							currentPage={currentPage}
-							paginate={paginate}
-							handleSearch={handleSearch}
-						/>
-					}
-				/>
-				<Route
-					path="/search"
-					element={
-						<SearchPage
-							moviesPerPage={moviesPerPage}
-							movies={movies}
-							paginate={paginate}
-							currentPage={currentPage}
-							currentMovies={currentMovies}
-							searchResults={movies}
-							handleSearch={handleSearch}
-						/>
-					}
-				/>
-			</Routes>
-		</BrowserRouter>
+		// Provide the client to your App
+		<QueryClientProvider client={queryClient}>
+			<BrowserRouter>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<HomePage
+								movies={movies}
+								currentMovies={currentMovies}
+								moviesPerPage={moviesPerPage}
+								currentPage={currentPage}
+								paginate={paginate}
+								handleSearch={handleSearch}
+							/>
+						}
+					/>
+					<Route
+						path="/search"
+						element={
+							<SearchPage
+								moviesPerPage={moviesPerPage}
+								movies={movies}
+								paginate={paginate}
+								currentPage={currentPage}
+								currentMovies={currentMovies}
+								searchResults={movies}
+								handleSearch={handleSearch}
+							/>
+						}
+					/>
+				</Routes>
+			</BrowserRouter>
+		</QueryClientProvider>
 	);
 }
 

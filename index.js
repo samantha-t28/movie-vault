@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import { setTimeout as sleep } from 'node:timers/promises';
 
 dotenv.config();
 
@@ -30,6 +31,13 @@ async function popularMoviesHandler(request, response) {
 			}
 		);
 		const tmdbResponseJSON = await tmdbResponse.json();
+		// TO DO TASK:
+		const parsedResults = tmdbResponseJSON.results.map(movie => {
+			movie.genres = ['action'];
+			return movie;
+		});
+		tmdbResponseJSON.results = parsedResults;
+		await sleep(3000);
 		response.send(tmdbResponseJSON);
 	} catch (error) {
 		console.error('Error fetching popular movies:', error);
