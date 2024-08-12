@@ -1,17 +1,24 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export const SearchBar = ({ onSearch }) => {
-	const [searchQuery, setSearchQuery] = useState('');
+	const [searchParams, setSearchParams] = useSearchParams();
+	const searchQueryParameter = searchParams.get('movie'); // Get parameter from the URL
+	const [searchQuery, setSearchQuery] = useState(searchQueryParameter);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		handleSearch();
+	}, []);
 
 	const handleInputChange = event => {
 		setSearchQuery(event.target.value);
+		setSearchParams({ movie: event.target.value });
 	};
 
 	const handleSearch = async event => {
 		// Prevent default form submission to avoid page reload
-		event.preventDefault();
+		event?.preventDefault();
 		if (!searchQuery.trim()) {
 			return;
 		}
@@ -32,7 +39,7 @@ export const SearchBar = ({ onSearch }) => {
 
 			const data = await response.json();
 			onSearch(data.results || []);
-			navigate('/search');
+			navigate(`/search?movie=${searchQuery}`);
 		} catch (error) {
 			console.error('Error fetching search results:', error);
 		}

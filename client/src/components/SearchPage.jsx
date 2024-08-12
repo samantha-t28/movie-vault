@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { MovieCard } from './MovieCard';
 import { Header } from './Header';
 import { Pagination } from './Pagination';
@@ -11,6 +12,9 @@ export const SearchPage = ({
 	searchResults,
 	handleSearch
 }) => {
+	const [searchParams] = useSearchParams();
+	console.log(searchParams.get('movie'));
+
 	return (
 		<>
 			<Header onSearch={handleSearch} />
@@ -20,6 +24,7 @@ export const SearchPage = ({
 					aria-labelledby="search-results-title"
 				>
 					<h2 className="movies__title">Search Results</h2>
+
 					<div className="movies__grid">
 						{currentMovies.map(movie => (
 							<MovieCard
