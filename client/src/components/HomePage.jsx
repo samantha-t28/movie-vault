@@ -52,6 +52,7 @@ export const HomePage = ({
 									year={movie.release_date.split('-')[0]}
 									image={movie.poster_path}
 									rating={movie.vote_average.toFixed(1)}
+									genre={movie.genres.join(', ')}
 								/>
 							))}
 						</div>

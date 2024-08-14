@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { setTimeout as sleep } from 'node:timers/promises';
+import genresList from './server/genre.json' assert { type: 'json' };
 
 dotenv.config();
 
@@ -20,8 +21,6 @@ app.post('/api', searchHandler);
 async function popularMoviesHandler(request, response) {
 	console.log('Entered popularMoviesHandler()');
 
-	// let searchQuery = request.query.query;
-	// console.log(searchQuery);
 	try {
 		const tmdbResponse = await fetch(
 			`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`,
@@ -31,11 +30,25 @@ async function popularMoviesHandler(request, response) {
 			}
 		);
 		const tmdbResponseJSON = await tmdbResponse.json();
-		// TO DO TASK:
+
 		const parsedResults = tmdbResponseJSON.results.map(movie => {
-			movie.genres = ['action'];
+			let genreStorage = [];
+			movie.genre_ids.map(genreId => {
+				console.log('GID:', genreId);
+
+				genresList.genres.map(genre => {
+					console.log('hello', genre.id);
+					console.log('hello222', genre.name);
+					if (genreId === genre.id) {
+						console.log('match:', genreId, genre.id);
+						genreStorage.push(genre.name);
+					}
+				});
+			});
+			movie.genres = genreStorage;
 			return movie;
 		});
+
 		tmdbResponseJSON.results = parsedResults;
 		await sleep(3000);
 		response.send(tmdbResponseJSON);
@@ -67,6 +80,19 @@ async function searchHandler(request, response) {
 			}
 		);
 		const tmdbResponseJSON = await tmdbResponse.json();
+
+		const parsedResults = tmdbResponseJSON.results.map(movie => {
+			let genreStorage = [];
+			movie.genre_ids.map(genreId => {
+				genresList.genres.map(genre => {
+					if (genreId === genre.id) {
+						genreStorage.push(genre.name);
+					}
+				});
+			});
+			movie.genres = genreStorage;
+			return movie;
+		});
 		response.send(tmdbResponseJSON);
 	} catch (error) {
 		console.error('Error fetching search results:', error);
