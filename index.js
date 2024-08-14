@@ -21,8 +21,6 @@ app.post('/api', searchHandler);
 async function popularMoviesHandler(request, response) {
 	console.log('Entered popularMoviesHandler()');
 
-	// let searchQuery = request.query.query;
-	// console.log(searchQuery);
 	try {
 		const tmdbResponse = await fetch(
 			`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`,
@@ -32,35 +30,25 @@ async function popularMoviesHandler(request, response) {
 			}
 		);
 		const tmdbResponseJSON = await tmdbResponse.json();
-		// TO DO TASK:
+
 		const parsedResults = tmdbResponseJSON.results.map(movie => {
-			// movie.genres = ['action'];
-			// console.log('HELLO:', movie.genre_ids);
-			// // console.log('Hello2:', genresList);
-
-			// genresList.genres.map(gen => {
-			// 	console.log('hello', gen.id);
-			// 	console.log('hello222', gen.name);
-			// });
-
 			let genreStorage = [];
-			movie.genre_ids.map(gid => {
-				console.log('GID:', gid);
+			movie.genre_ids.map(genreId => {
+				console.log('GID:', genreId);
 
-				genresList.genres.map(gen => {
-					console.log('hello', gen.id);
-					console.log('hello222', gen.name);
-					if (gid === gen.id) {
-						console.log('match:', gid, gen.id);
-						genreStorage.push(gen.name);
+				genresList.genres.map(genre => {
+					console.log('hello', genre.id);
+					console.log('hello222', genre.name);
+					if (genreId === genre.id) {
+						console.log('match:', genreId, genre.id);
+						genreStorage.push(genre.name);
 					}
 				});
 			});
 			movie.genres = genreStorage;
 			return movie;
-			// we can see it from client log and server side
 		});
-		// console.log('calling for:', parsedResults);
+
 		tmdbResponseJSON.results = parsedResults;
 		await sleep(3000);
 		response.send(tmdbResponseJSON);
@@ -92,6 +80,19 @@ async function searchHandler(request, response) {
 			}
 		);
 		const tmdbResponseJSON = await tmdbResponse.json();
+
+		const parsedResults = tmdbResponseJSON.results.map(movie => {
+			let genreStorage = [];
+			movie.genre_ids.map(genreId => {
+				genresList.genres.map(genre => {
+					if (genreId === genre.id) {
+						genreStorage.push(genre.name);
+					}
+				});
+			});
+			movie.genres = genreStorage;
+			return movie;
+		});
 		response.send(tmdbResponseJSON);
 	} catch (error) {
 		console.error('Error fetching search results:', error);

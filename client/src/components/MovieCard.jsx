@@ -1,4 +1,4 @@
-export const MovieCard = ({ title, image, year, rating }) => {
+export const MovieCard = ({ title, image, year, rating, genre }) => {
 	// Check to see if image source is avaliable. If not, set it to null
 	const imageUrl = image ? `https://image.tmdb.org/t/p/w500${image}` : null;
 
@@ -30,6 +30,7 @@ export const MovieCard = ({ title, image, year, rating }) => {
 				>
 					Ratings: {rating} / 10
 				</div>
+				<p className="movie-card__genre">{genre}</p>
 			</div>
 		</div>
 	);

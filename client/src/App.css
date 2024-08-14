@@ -311,6 +311,11 @@ body {
 	font-size: 1rem;
 }
 
+.movie-card__genre {
+	padding: 0.5rem 0 0.5rem;
+	font-size: 0.85rem;
+}
+
 /***** Pagination Controls *****/
 .pagination {
 	margin-top: 20px;
