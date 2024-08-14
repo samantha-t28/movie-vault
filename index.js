@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { setTimeout as sleep } from 'node:timers/promises';
+import genresList from './server/genre.json' assert { type: 'json' };
 
 dotenv.config();
 
@@ -33,9 +34,33 @@ async function popularMoviesHandler(request, response) {
 		const tmdbResponseJSON = await tmdbResponse.json();
 		// TO DO TASK:
 		const parsedResults = tmdbResponseJSON.results.map(movie => {
-			movie.genres = ['action'];
+			// movie.genres = ['action'];
+			// console.log('HELLO:', movie.genre_ids);
+			// // console.log('Hello2:', genresList);
+
+			// genresList.genres.map(gen => {
+			// 	console.log('hello', gen.id);
+			// 	console.log('hello222', gen.name);
+			// });
+
+			let genreStorage = [];
+			movie.genre_ids.map(gid => {
+				console.log('GID:', gid);
+
+				genresList.genres.map(gen => {
+					console.log('hello', gen.id);
+					console.log('hello222', gen.name);
+					if (gid === gen.id) {
+						console.log('match:', gid, gen.id);
+						genreStorage.push(gen.name);
+					}
+				});
+			});
+			movie.genres = genreStorage;
 			return movie;
+			// we can see it from client log and server side
 		});
+		// console.log('calling for:', parsedResults);
 		tmdbResponseJSON.results = parsedResults;
 		await sleep(3000);
 		response.send(tmdbResponseJSON);
