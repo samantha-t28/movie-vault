@@ -15,6 +15,7 @@ export const SearchPage = ({
 	const [searchParams] = useSearchParams();
 	console.log(searchParams.get('movie'));
 
+	console.log(searchResults.length);
 	return (
 		<>
 			<Header onSearch={handleSearch} />
@@ -23,7 +24,10 @@ export const SearchPage = ({
 					className="movies"
 					aria-labelledby="search-results-title"
 				>
-					<h2 className="movies__title">Search Results</h2>
+					<h2 className="movies__title">
+						Displaying {searchResults.length} Results for "
+						{searchParams.get('movie')}"
+					</h2>
 
 					<div className="movies__grid">
 						{currentMovies.map(movie => (
