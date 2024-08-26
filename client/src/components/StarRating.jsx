@@ -17,7 +17,7 @@ export const StarRating = ({ rating }) => {
 	return (
 		<div
 			className="movie-card__star-rating"
-			aria-label={`${rating} stars out of 5`}
+			aria-label={`${roundedRating} stars out of 5`}
 		>
 			Ratings:
 			<span className="movie-card__star movie-card__star--full">
