@@ -3,21 +3,24 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export const SearchBar = ({ onSearch }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
-	const searchQueryParameter = searchParams.get('movie'); // Get parameter from the URL
+	const searchQueryParameter = searchParams.get('movie') || ''; // Get parameter from the URL
 	const [searchQuery, setSearchQuery] = useState(searchQueryParameter);
 	const navigate = useNavigate();
 
+	// Trigger initial search when the component mounts, using the query from the URL
 	useEffect(() => {
 		handleSearch();
 	}, []);
 
 	const handleInputChange = event => {
 		setSearchQuery(event.target.value);
+		// Updates the URL's query parameters with the current search input value
 		setSearchParams({ movie: event.target.value });
 	};
 
 	const handleSearch = async event => {
 		// Prevent default form submission to avoid page reload
+		// Added optional chaining to ensure preventDefault() is only called if 'event' is defined.
 		event?.preventDefault();
 		if (!searchQuery.trim()) {
 			return;
