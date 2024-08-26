@@ -300,6 +300,29 @@ body {
 	font-size: 1rem;
 }
 
+.movie-card__star-rating {
+	font-size: 1rem;
+}
+
+.movie-card__star--full {
+	color: gold; /* Full star color */
+}
+
+.movie-card__star--half {
+	color: gold; /* Half star color */
+	background: linear-gradient(
+		90deg,
+		gold 50%,
+		#ccc 50%
+	); /* Half star effect */
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.movie-card__star--empty {
+	color: #ccc; /* Empty star color */
+}
+
 .movie-card__details {
 	padding: 10px 12px 18px;
 	max-height: 100px;

@@ -1,3 +1,5 @@
+import { StarRating } from './StarRating';
+
 export const MovieCard = ({ title, image, year, rating, genre }) => {
 	// Check to see if image source is avaliable. If not, set it to null
 	const imageUrl = image ? `https://image.tmdb.org/t/p/w500${image}` : null;
@@ -25,10 +27,10 @@ export const MovieCard = ({ title, image, year, rating, genre }) => {
 					{title} {year}
 				</h3>
 				<div
-					className="movie-card__rating"
-					aria-label={`${rating} stars out of 10`}
+					className="movie-card__star-rating"
+					aria-label={`${rating} stars out of 5`}
 				>
-					Ratings: {rating} / 10
+					<StarRating rating={rating} />
 				</div>
 				<p className="movie-card__genre">{genre}</p>
 			</div>
