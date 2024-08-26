@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { SearchBar } from './SearchBar';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -6,14 +7,14 @@ export const Header = ({ onSearch }) => {
 		<div className="theme--light">
 			<div className="header-wrapper">
 				<header className="header">
-					<div className="header__logo">
+					<Link to="/">
 						<img
 							className="header__logo-img"
 							src="/movie-vault-logo.svg"
 							alt="Movie Vault logo"
 							id="logo"
 						/>
-					</div>
+					</Link>
 					<div className="header__search-bar">
 						<SearchBar onSearch={onSearch} />
 					</div>
