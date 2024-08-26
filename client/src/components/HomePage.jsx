@@ -24,8 +24,8 @@ export const HomePage = ({
 		queryKey: ['popularMovies'],
 		queryFn: popularMovies
 	});
-	console.log(data);
-	console.log(error);
+	// console.log(data);
+	// console.log(error);
 
 	if (isError) {
 		return <div>Opps Error! {error.message}</div>;
