@@ -300,15 +300,15 @@ body {
 	font-size: 1rem;
 }
 
-.star-rating {
-	font-size: 1.125rem;
+.movie-card__star-rating {
+	font-size: 1rem;
 }
 
-.star-rating .full-star {
+.movie-card__star--full {
 	color: gold; /* Full star color */
 }
 
-.star-rating .half-star {
+.movie-card__star--half {
 	color: gold; /* Half star color */
 	background: linear-gradient(
 		90deg,
@@ -319,7 +319,7 @@ body {
 	-webkit-text-fill-color: transparent;
 }
 
-.star-rating .empty-star {
+.movie-card__star--empty {
 	color: #ccc; /* Empty star color */
 }
 
