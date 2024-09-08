@@ -51,6 +51,8 @@ async function popularMoviesHandler(request, response) {
 
 		tmdbResponseJSON.results = parsedResults;
 		await sleep(3000);
+		// Intentionally added throw new Error to test and display the error message
+		// throw new Error('Render Error');
 		response.send(tmdbResponseJSON);
 	} catch (error) {
 		console.error('Error fetching popular movies:', error);
