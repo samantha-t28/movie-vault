@@ -7,7 +7,16 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './App.css';
 
 // Create a client
-const queryClient = new QueryClient();
+// Create a QueryClient with default options
+// Setting `retry: false` ensures that queries won't automatically retry on failure
+// This allows immediate error handling without multiple retry attempts
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			retry: false
+		}
+	}
+});
 
 function App() {
 	const [movies, setMovies] = useState([]);

@@ -7,9 +7,17 @@ import { useQuery } from '@tanstack/react-query';
 const popularMovies = () => {
 	return (
 		fetch('/api')
-			.then(response => response.json())
-			// .then(data => setMovies(data.results || []))
-			.catch(error => console.error('Error fetching movies:', error))
+			// .then(response => response.json())
+			.then(response => {
+				if (response.ok) {
+					return response.json();
+				}
+				// const responseText = await response.text();
+				// throw new Error(responseText);
+				throw new Error('Throwing new Error');
+			})
+		// .then(data => setMovies(data.results || []))
+		// .catch(error => console.error('Error fetching movies:', error))
 	);
 };
 export const HomePage = ({
@@ -27,9 +35,6 @@ export const HomePage = ({
 	// console.log(data);
 	// console.log(error);
 
-	if (isError) {
-		return <div>Opps Error! {error.message}</div>;
-	}
 	return (
 		<>
 			<Header onSearch={handleSearch} />
@@ -39,11 +44,9 @@ export const HomePage = ({
 					aria-labelledby="featured-movies-title"
 				>
 					<h2 className="movies__title">Featured movies</h2>
-					{isError && <div>Opps Error! {error}</div>}
-
-					{isPending ? (
-						<div>Loading...</div>
-					) : (
+					{isError && <div>Opps Error! {error.message}</div>}
+					{isPending && <div>Loading...</div>}
+					{data && data.results && (
 						<div className="movies__grid">
 							{data.results.map(movie => (
 								<MovieCard
