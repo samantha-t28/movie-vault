@@ -1,28 +1,7 @@
-import { useEffect } from 'react';
+import { useTheme } from '../context/useTheme';
 
 export const ThemeToggle = () => {
-	useEffect(() => {
-		const logo = document.getElementById('logo');
-		const toggleSwitch = document.getElementById('toggleSwitch');
-
-		const handleToggleChange = () => {
-			if (toggleSwitch.checked) {
-				document.body.classList.add('theme--dark');
-				document.body.classList.remove('theme--light');
-				logo.src = '/movie-vault-logo-white.svg'; // Path to the white logo
-			} else {
-				document.body.classList.add('theme--light');
-				document.body.classList.remove('theme--dark');
-				logo.src = '/movie-vault-logo.svg'; // Path to the black logo
-			}
-		};
-		toggleSwitch.addEventListener('change', handleToggleChange);
-
-		// Cleanup event listener on component unmount
-		return () => {
-			toggleSwitch.removeEventListener('change', handleToggleChange);
-		};
-	}, []);
+	const { theme, toggleTheme } = useTheme();
 
 	return (
 		<div className="theme-toggle">
@@ -31,6 +10,8 @@ export const ThemeToggle = () => {
 				id="toggleSwitch"
 				className="theme-toggle__checkbox"
 				aria-label="Toggle light and dark mode"
+				checked={theme === 'dark'}
+				onChange={toggleTheme}
 			/>
 			<label htmlFor="toggleSwitch" className="theme-toggle__label">
 				<span className="theme-toggle__slider">
