@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ThemeProvider } from './context/ThemeContext';
+import { ThemeProvider } from './context/ThemeProvider';
 import { HomePage } from './components/HomePage';
 import { SearchPage } from './components/SearchPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';

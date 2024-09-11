@@ -5,10 +5,16 @@ const ThemeContext = createContext();
 
 // ThemeProvider component that wraps the app and manages the theme state
 export const ThemeProvider = ({ children }) => {
-	const [theme, setTheme] = useState('light');
-
+	// Retrieve theme on load
+	const [theme, setTheme] = useState(
+		() => localStorage.getItem('theme') || 'light'
+	);
+	// Apply theme and save it to local storage
 	useLayoutEffect(() => {
 		document.body.className = `theme--${theme}`;
+
+		// Saves 'light' or 'dark' to storage
+		localStorage.setItem('theme', theme);
 	}, [theme]);
 
 	const toggleTheme = () => {
