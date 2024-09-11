@@ -1,18 +1,25 @@
 import { Link } from 'react-router-dom';
 import { SearchBar } from './SearchBar';
 import { ThemeToggle } from './ThemeToggle';
+import { useTheme } from '../context/useTheme';
 
 export const Header = ({ onSearch }) => {
+	const { theme } = useTheme();
+
 	return (
 		<div className="theme--light">
 			<div className="header-wrapper">
 				<header className="header">
 					<Link to="/">
 						<img
-							className="header__logo-img"
-							src="/movie-vault-logo.svg"
-							alt="Movie Vault logo"
 							id="logo"
+							className="header__logo-img"
+							src={
+								theme === 'light'
+									? '/movie-vault-logo.svg'
+									: '/movie-vault-logo-white.svg'
+							}
+							alt="Movie Vault logo"
 						/>
 					</Link>
 					<div className="header__search-bar">

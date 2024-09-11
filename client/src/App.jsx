@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
 import { HomePage } from './components/HomePage';
 import { SearchPage } from './components/SearchPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -41,39 +42,41 @@ function App() {
 
 	return (
 		// Provide the client to your App
-		<QueryClientProvider client={queryClient}>
-			<BrowserRouter>
-				<Routes>
-					<Route
-						path="/"
-						element={
-							<HomePage
-								movies={movies}
-								currentMovies={currentMovies}
-								moviesPerPage={moviesPerPage}
-								currentPage={currentPage}
-								paginate={paginate}
-								handleSearch={handleSearch}
-							/>
-						}
-					/>
-					<Route
-						path="/search"
-						element={
-							<SearchPage
-								moviesPerPage={moviesPerPage}
-								movies={movies}
-								paginate={paginate}
-								currentPage={currentPage}
-								currentMovies={currentMovies}
-								searchResults={movies}
-								handleSearch={handleSearch}
-							/>
-						}
-					/>
-				</Routes>
-			</BrowserRouter>
-		</QueryClientProvider>
+		<ThemeProvider>
+			<QueryClientProvider client={queryClient}>
+				<BrowserRouter>
+					<Routes>
+						<Route
+							path="/"
+							element={
+								<HomePage
+									movies={movies}
+									currentMovies={currentMovies}
+									moviesPerPage={moviesPerPage}
+									currentPage={currentPage}
+									paginate={paginate}
+									handleSearch={handleSearch}
+								/>
+							}
+						/>
+						<Route
+							path="/search"
+							element={
+								<SearchPage
+									moviesPerPage={moviesPerPage}
+									movies={movies}
+									paginate={paginate}
+									currentPage={currentPage}
+									currentMovies={currentMovies}
+									searchResults={movies}
+									handleSearch={handleSearch}
+								/>
+							}
+						/>
+					</Routes>
+				</BrowserRouter>
+			</QueryClientProvider>
+		</ThemeProvider>
 	);
 }
 

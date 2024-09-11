@@ -15,6 +15,16 @@
 	--image-not-available-color: #6e6e6e;
 }
 
+/* Light Theme */
+body.theme--light {
+	--header-color: #e3e3e5;
+	--text-color: #1b1b1b;
+	--body-bg-color: #f6f6f6;
+	--border-color: #ccc;
+	--toggle-bg-color: #ccc;
+	--toggle-slider-color: rgb(53, 53, 53);
+}
+
 /***** Dark Theme Variables *****/
 body.theme--dark {
 	--header-color: #0d1226;
