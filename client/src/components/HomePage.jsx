@@ -1,10 +1,10 @@
-import React from 'react';
 import { Header } from './Header';
 import { MovieCard } from './MovieCard';
 import { Pagination } from './Pagination';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 
-const popularMovies = () => {
+const popularMovies = (currentPage, moviesPerPage) => {
+	console.log('popularMovies function called with currentPage:', currentPage);
 	return (
 		fetch('/api')
 			// .then(response => response.json())
@@ -16,6 +16,7 @@ const popularMovies = () => {
 				// throw new Error(responseText);
 				throw new Error('Throwing new Error');
 			})
+
 		// .then(data => setMovies(data.results || []))
 		// .catch(error => console.error('Error fetching movies:', error))
 	);
@@ -28,12 +29,15 @@ export const HomePage = ({
 	handleSearch,
 	paginate
 }) => {
-	const { isPending, isError, data, error } = useQuery({
-		queryKey: ['popularMovies'],
-		queryFn: popularMovies
+	console.log('HomePage component rendered');
+	const { isLoading, isError, data, error, isFetching } = useQuery({
+		queryKey: ['popularMovies', currentPage],
+		queryFn: () => popularMovies(currentPage, moviesPerPage),
+		keepPreviousData: true
 	});
 	// console.log(data);
 	// console.log(error);
+	// console.log('Show data:', data.total_results);
 
 	return (
 		<>
@@ -45,7 +49,7 @@ export const HomePage = ({
 				>
 					<h2 className="movies__title">Featured movies</h2>
 					{isError && <div>Opps Error! {error.message}</div>}
-					{isPending && <div>Loading...</div>}
+					{isLoading && <div>Loading...</div>}
 					{data && data.results && (
 						<div className="movies__grid">
 							{data.results.map(movie => (
@@ -63,9 +67,10 @@ export const HomePage = ({
 					<div>
 						<Pagination
 							moviesPerPage={moviesPerPage}
-							totalMovies={movies.length}
+							totalMovies={data.total_results}
 							paginate={paginate}
 							currentPage={currentPage}
+							totalPages={data?.total_pages || 1}
 						/>
 					</div>
 				</section>

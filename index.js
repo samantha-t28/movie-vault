@@ -66,7 +66,7 @@ async function popularMoviesHandler(request, response) {
 
 async function searchHandler(request, response) {
 	console.log('Entered searchHandler()');
-	const { query } = request.body;
+	const { query, currentPage } = request.body;
 	console.log('Received data: ', query);
 
 	if (!query) {
@@ -75,7 +75,9 @@ async function searchHandler(request, response) {
 
 	try {
 		const tmdbResponse = await fetch(
-			`https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&query=${query}`,
+			`https://api.themoviedb.org/3/search/movie?api_key=${
+				process.env.TMDB_API_KEY
+			}&query=${query}&page=${currentPage || 1}`,
 			{
 				method: 'GET',
 				headers: { 'Content-Type': 'application/json' }

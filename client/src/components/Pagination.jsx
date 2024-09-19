@@ -2,8 +2,14 @@ export const Pagination = ({
 	moviesPerPage,
 	totalMovies,
 	paginate,
-	currentPage
+	currentPage,
+	totalPages
 }) => {
+	console.log('Total Movies:', totalMovies);
+	console.log('Movies Per Page:', moviesPerPage);
+	// const totalPageCount = totalPages || Math.ceil(totalMovies / moviesPerPage);
+	// console.log('Total Page Count:', totalPageCount);
+
 	// Hold the numbers of each page
 	const pageNumbers = [];
 

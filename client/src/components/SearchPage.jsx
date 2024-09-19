@@ -9,23 +9,29 @@ export const SearchPage = ({
 	paginate,
 	currentPage,
 	currentMovies,
-	searchResults,
-	handleSearch
+	totalResults,
+	totalPages,
+	handleSearch,
+	setCurrentPage
 }) => {
 	const [searchParams] = useSearchParams();
 	console.log(searchParams.get('movie'));
 
-	console.log(searchResults.length);
+	// console.log(searchResults);
 	return (
 		<>
-			<Header onSearch={handleSearch} />
+			<Header
+				onSearch={handleSearch}
+				currentPage={currentPage}
+				setCurrentPage={setCurrentPage}
+			/>
 			<main className="main-content" role="main">
 				<section
 					className="movies"
 					aria-labelledby="search-results-title"
 				>
 					<h2 className="movies__title">
-						Displaying {searchResults.length} Results for "
+						Displaying {totalResults} Results for "
 						{searchParams.get('movie')}"
 					</h2>
 
@@ -44,7 +50,7 @@ export const SearchPage = ({
 					<div>
 						<Pagination
 							moviesPerPage={moviesPerPage}
-							totalMovies={searchResults.length}
+							totalMovies={totalResults}
 							paginate={paginate}
 							currentPage={currentPage}
 						/>
