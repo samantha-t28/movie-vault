@@ -27,7 +27,8 @@ export const HomePage = ({
 	currentPage,
 	moviesPerPage,
 	handleSearch,
-	paginate
+	paginate,
+	setCurrentPage
 }) => {
 	console.log('HomePage component rendered');
 	const { isLoading, isError, data, error, isFetching } = useQuery({
@@ -41,7 +42,11 @@ export const HomePage = ({
 
 	return (
 		<>
-			<Header onSearch={handleSearch} />
+			<Header
+				onSearch={handleSearch}
+				currentPage={currentPage}
+				setCurrentPage={setCurrentPage}
+			/>
 			<main className="main-content" role="main">
 				<section
 					className="movies"

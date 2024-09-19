@@ -63,6 +63,7 @@ function App() {
 									totalResults={totalResults}
 									paginate={paginate}
 									handleSearch={handleSearch}
+									setCurrentPage={setCurrentPage}
 								/>
 							}
 						/>

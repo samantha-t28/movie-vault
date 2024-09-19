@@ -53,6 +53,7 @@ export const SearchPage = ({
 							totalMovies={totalResults}
 							paginate={paginate}
 							currentPage={currentPage}
+							setCurrentPage={setCurrentPage}
 						/>
 					</div>
 				</section>
