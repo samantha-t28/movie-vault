@@ -51,28 +51,30 @@ export const HomePage = ({
 					{isError && <div>Opps Error! {error.message}</div>}
 					{isLoading && <div>Loading...</div>}
 					{data && data.results && (
-						<div className="movies__grid">
-							{data.results.map(movie => (
-								<MovieCard
-									key={movie.id}
-									title={movie.title}
-									year={movie.release_date.split('-')[0]}
-									image={movie.poster_path}
-									rating={movie.vote_average.toFixed(1)}
-									genre={movie.genres.join(', ')}
+						<>
+							<div className="movies__grid">
+								{data.results.map(movie => (
+									<MovieCard
+										key={movie.id}
+										title={movie.title}
+										year={movie.release_date.split('-')[0]}
+										image={movie.poster_path}
+										rating={movie.vote_average.toFixed(1)}
+										genre={movie.genres.join(', ')}
+									/>
+								))}
+							</div>
+							<div>
+								<Pagination
+									moviesPerPage={moviesPerPage}
+									totalMovies={data.total_results}
+									paginate={paginate}
+									currentPage={currentPage}
+									totalPages={data?.total_pages || 1}
 								/>
-							))}
-						</div>
+							</div>
+						</>
 					)}
-					<div>
-						<Pagination
-							moviesPerPage={moviesPerPage}
-							totalMovies={data.total_results}
-							paginate={paginate}
-							currentPage={currentPage}
-							totalPages={data?.total_pages || 1}
-						/>
-					</div>
 				</section>
 			</main>
 		</>
