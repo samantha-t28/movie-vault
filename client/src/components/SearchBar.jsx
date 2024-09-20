@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-export const SearchBar = ({ onSearch }) => {
+export const SearchBar = ({ onSearch, currentPage, setCurrentPage }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const searchQueryParameter = searchParams.get('movie') || ''; // Get parameter from the URL
 	const [searchQuery, setSearchQuery] = useState(searchQueryParameter);
@@ -10,7 +10,11 @@ export const SearchBar = ({ onSearch }) => {
 	// Trigger initial search when the component mounts, using the query from the URL
 	useEffect(() => {
 		handleSearch();
-	}, []);
+	}, [currentPage]);
+
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [searchQueryParameter]);
 
 	const handleInputChange = event => {
 		setSearchQuery(event.target.value);
@@ -33,7 +37,7 @@ export const SearchBar = ({ onSearch }) => {
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ query: searchQuery })
+				body: JSON.stringify({ query: searchQuery, currentPage })
 			});
 
 			if (!response.ok) {
@@ -41,7 +45,7 @@ export const SearchBar = ({ onSearch }) => {
 			}
 
 			const data = await response.json();
-			onSearch(data.results || []);
+			onSearch(data);
 			navigate(`/search?movie=${searchQuery}`);
 		} catch (error) {
 			console.error('Error fetching search results:', error);
