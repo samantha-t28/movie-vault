@@ -5,59 +5,59 @@ import { Header } from './Header';
 import { Pagination } from './Pagination';
 
 export const SearchPage = ({
-	moviesPerPage,
-	paginate,
-	currentPage,
-	currentMovies,
-	totalResults,
-	totalPages,
-	handleSearch,
-	setCurrentPage
+    moviesPerPage,
+    paginate,
+    currentPage,
+    currentMovies,
+    totalResults,
+    totalPages,
+    handleSearch,
+    setCurrentPage
 }) => {
-	const [searchParams] = useSearchParams();
-	console.log(searchParams.get('movie'));
+    const [searchParams] = useSearchParams();
+    console.log(searchParams.get('movie'));
 
-	// console.log(searchResults);
-	return (
-		<>
-			<Header
-				onSearch={handleSearch}
-				currentPage={currentPage}
-				setCurrentPage={setCurrentPage}
-			/>
-			<main className="main-content" role="main">
-				<section
-					className="movies"
-					aria-labelledby="search-results-title"
-				>
-					<h2 className="movies__title">
-						Displaying {totalResults} Results for "
-						{searchParams.get('movie')}"
-					</h2>
+    // console.log(searchResults);
+    return (
+        <>
+            <Header
+                onSearch={handleSearch}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+            />
+            <main className="main-content" role="main">
+                <section
+                    className="movies"
+                    aria-labelledby="search-results-title"
+                >
+                    <h2 className="movies__title">
+                        Displaying {totalResults} Results for "
+                        {searchParams.get('movie')}"
+                    </h2>
 
-					<div className="movies__grid">
-						{currentMovies.map(movie => (
-							<MovieCard
-								key={movie.id}
-								title={movie.title}
-								year={movie.release_date.split('-')[0]}
-								image={movie.poster_path}
-								rating={movie.vote_average.toFixed(1)}
-								genre={movie.genres.join(', ')}
-							/>
-						))}
-					</div>
-					<div>
-						<Pagination
-							moviesPerPage={moviesPerPage}
-							totalMovies={totalResults}
-							paginate={paginate}
-							currentPage={currentPage}
-							setCurrentPage={setCurrentPage}
-						/>
-					</div>
-				</section>
-			</main>
-		</>
-	);
+                    <div className="movies__grid">
+                        {currentMovies.map(movie => (
+                            <MovieCard
+                                key={movie.id}
+                                title={movie.title}
+                                year={movie.release_date.split('-')[0]}
+                                image={movie.poster_path}
+                                rating={movie.vote_average.toFixed(1)}
+                                genre={movie.genres.join(', ')}
+                            />
+                        ))}
+                    </div>
+                    <div>
+                        <Pagination
+                            moviesPerPage={moviesPerPage}
+                            totalMovies={totalResults}
+                            paginate={paginate}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                        />
+                    </div>
+                </section>
+            </main>
+        </>
+    );
 };
