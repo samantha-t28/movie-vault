@@ -58,9 +58,7 @@ h3 {
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    transition:
-        background-color 0.3s ease-in-out,
-        color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 /****** Header wrapper *****/
@@ -238,9 +236,7 @@ body {
 .movies {
     /* padding: 2rem 0; */
     color: var(--text-color);
-    transition:
-        background-color 0.3s ease-in-out,
-        color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .movies__title {
