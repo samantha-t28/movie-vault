@@ -6,7 +6,7 @@ import { useQuery, keepPreviousData } from '@tanstack/react-query';
 const popularMovies = (currentPage, moviesPerPage) => {
     console.log('popularMovies function called with currentPage:', currentPage);
     return (
-        fetch('/api')
+        fetch(`/api?page=${currentPage}`)
             // .then(response => response.json())
             .then(response => {
                 if (response.ok) {
