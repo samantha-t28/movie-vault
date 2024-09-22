@@ -24,7 +24,7 @@ function App() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const [totalResults, setTotalResults] = useState(0);
-    const moviesPerPage = 20;
+    const moviesPerPage = 8;
 
     // const movies = await getServer();
 

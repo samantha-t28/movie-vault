@@ -3,7 +3,7 @@ import { MovieCard } from './MovieCard';
 import { Pagination } from './Pagination';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 
-const popularMovies = (currentPage, moviesPerPage) => {
+const popularMovies = currentPage => {
     console.log('popularMovies function called with currentPage:', currentPage);
     return (
         fetch(`/api?page=${currentPage}`)
@@ -22,13 +22,13 @@ const popularMovies = (currentPage, moviesPerPage) => {
     );
 };
 export const HomePage = ({
-    movies,
-    currentMovies,
-    currentPage,
     moviesPerPage,
-    handleSearch,
     paginate,
-    setCurrentPage
+    currentPage,
+    handleSearch,
+    setCurrentPage,
+    totalResults,
+    totalPages
 }) => {
     console.log('HomePage component rendered');
     const { isLoading, isError, data, error, isFetching } = useQuery({
@@ -39,6 +39,8 @@ export const HomePage = ({
     // console.log(data);
     // console.log(error);
     // console.log('Show data:', data.total_results);
+
+    console.log('I am here with the data', data);
 
     return (
         <>
@@ -72,10 +74,12 @@ export const HomePage = ({
                             <div>
                                 <Pagination
                                     moviesPerPage={moviesPerPage}
-                                    totalMovies={data.total_results}
+                                    totalMovies={20}
                                     paginate={paginate}
                                     currentPage={currentPage}
-                                    totalPages={data?.total_pages || 1}
+                                    totalPages={totalPages}
+                                    // totalPages={data?.total_page || 1}
+                                    setCurrentPage={setCurrentPage}
                                 />
                             </div>
                         </>

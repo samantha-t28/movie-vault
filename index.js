@@ -21,7 +21,9 @@ app.post('/api', searchHandler);
 async function popularMoviesHandler(request, response) {
     console.log('Entered popularMoviesHandler()');
 
-    const page = request.query.page || 1;
+    const page = parseInt(request.query.page || 1);
+    // const { query, currentPage } = request.body;
+    console.log('Page requested', page);
     try {
         const tmdbResponse = await fetch(
             `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${page}`,
@@ -32,16 +34,24 @@ async function popularMoviesHandler(request, response) {
         );
         const tmdbResponseJSON = await tmdbResponse.json();
 
+        // // Limit to 20 movies in total
+        // let allResults = tmdbResponseJSON.results.slice(0, 20);
+
+        // // Calculate the range for the current page (e.g., 8 movies per page)
+        // const startIndex = (page - 1) * 8;
+        // const endIndex = page * 8;
+        // const paginatedResults = allResults.slice(startIndex, endIndex);
+
         const parsedResults = tmdbResponseJSON.results.map(movie => {
             let genreStorage = [];
             movie.genre_ids.map(genreId => {
-                console.log('GID:', genreId);
+                // console.log('GID:', genreId);
 
                 genresList.genres.map(genre => {
-                    console.log('hello', genre.id);
-                    console.log('hello222', genre.name);
+                    // console.log('hello', genre.id);
+                    // console.log('hello222', genre.name);
                     if (genreId === genre.id) {
-                        console.log('match:', genreId, genre.id);
+                        // console.log('match:', genreId, genre.id);
                         genreStorage.push(genre.name);
                     }
                 });
@@ -51,6 +61,7 @@ async function popularMoviesHandler(request, response) {
         });
 
         tmdbResponseJSON.results = parsedResults;
+
         await sleep(3000);
         // Intentionally added throw new Error to test and display the error message
         // throw new Error('Render Error');
