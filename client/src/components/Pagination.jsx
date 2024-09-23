@@ -7,20 +7,11 @@ export const Pagination = ({
 }) => {
     console.log('Total Movies:', totalMovies);
     console.log('Movies Per Page:', moviesPerPage);
-    // const totalPageCount = totalPages || Math.ceil(totalMovies / moviesPerPage);
+
     // console.log('Total Page Count:', totalPageCount);
 
     // Hold the numbers of each page
     const pageNumbers = [];
-    // const totalPageCount = totalPages;
-
-    // if (totalPageCount <= 8) {
-    //     for (let i = 0; i <= totalPageCount; i++) {
-    //         pageNumbers.push(i);
-    //     }
-    // } else {
-    //     pageNumbers.push(1, 2, 3);
-    // }
 
     for (let i = 1; i <= Math.ceil(totalMovies / moviesPerPage); i++) {
         pageNumbers.push(i);
@@ -49,8 +40,10 @@ export const Pagination = ({
                         currentPage === 1 ? 'disabled' : ''
                     }`}
                 >
+                    {/** Previous Page Button */}
                     {/** If current page is 1, the button is disabled to prevent going to non-existent previous page */}
                     <button
+                        aria-label="Previous Page"
                         onClick={handlePrevClick}
                         className="page-link"
                         disabled={currentPage === 1}
@@ -58,6 +51,7 @@ export const Pagination = ({
                         <i className="fa-solid fa-arrow-left"></i>
                     </button>
                 </li>
+                {/** Page Button */}
                 {/* iterates over the pageNumbers array and creates a button for each page number */}
                 {/** <li> element received 'active' class if it matches the 'currentPage' */}
                 {pageNumbers.map(number => (
@@ -81,8 +75,10 @@ export const Pagination = ({
                         currentPage === pageNumbers.length ? 'disabled' : ''
                     }`}
                 >
+                    {/** Next Page Button */}
                     {/** If current page is the last page, disable button */}
                     <button
+                        aria-label="Next Page"
                         onClick={handleNextClick}
                         className="page-link"
                         disabled={currentPage === pageNumbers.length}

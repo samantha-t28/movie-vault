@@ -56,8 +56,6 @@ function App() {
                                 <HomePage
                                     movies={movies}
                                     currentMovies={movies}
-                                    // moviesPerPage={moviesPerPage}
-                                    // totalMovies={totalMovies}
                                     currentPage={currentPage}
                                     totalPages={totalPages}
                                     totalResults={totalResults}
@@ -71,12 +69,10 @@ function App() {
                             path="/search"
                             element={
                                 <SearchPage
-                                    // moviesPerPage={moviesPerPage}
                                     movies={movies}
                                     paginate={paginate}
                                     currentPage={currentPage}
                                     currentMovies={movies}
-                                    // searchResults={movies}
                                     totalResults={totalResults}
                                     totalPages={totalPages}
                                     handleSearch={handleSearch}
