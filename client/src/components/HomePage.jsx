@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Header } from './Header';
 import { MovieCard } from './MovieCard';
 import { Pagination } from './Pagination';
@@ -22,20 +23,27 @@ const popularMovies = currentPage => {
     );
 };
 export const HomePage = ({
-    moviesPerPage,
+    moviesPerPage = 8,
     paginate,
     currentPage,
     handleSearch,
     setCurrentPage,
     totalResults,
-    totalPages
+    totalPages,
+    totalMovies = 20
 }) => {
+    // Fetch popular movies using react-query
     console.log('HomePage component rendered');
     const { isLoading, isError, data, error, isFetching } = useQuery({
         queryKey: ['popularMovies', currentPage],
-        queryFn: () => popularMovies(currentPage, moviesPerPage),
+        queryFn: () => popularMovies(currentPage),
         keepPreviousData: true
     });
+
+    // Calculate the first and last movie to display on the current page based on moviesPerPage
+    const startIndex = (currentPage - 1) * moviesPerPage;
+    const endIndex = startIndex + moviesPerPage;
+
     // console.log(data);
     // console.log(error);
     // console.log('Show data:', data.total_results);
@@ -60,25 +68,30 @@ export const HomePage = ({
                     {data && data.results && (
                         <>
                             <div className="movies__grid">
-                                {data.results.map(movie => (
-                                    <MovieCard
-                                        key={movie.id}
-                                        title={movie.title}
-                                        year={movie.release_date.split('-')[0]}
-                                        image={movie.poster_path}
-                                        rating={movie.vote_average.toFixed(1)}
-                                        genre={movie.genres.join(', ')}
-                                    />
-                                ))}
+                                {data.results
+                                    .slice(startIndex, endIndex)
+                                    .map(movie => (
+                                        <MovieCard
+                                            key={movie.id}
+                                            title={movie.title}
+                                            year={
+                                                movie.release_date.split('-')[0]
+                                            }
+                                            image={movie.poster_path}
+                                            rating={movie.vote_average.toFixed(
+                                                1
+                                            )}
+                                            genre={movie.genres.join(', ')}
+                                        />
+                                    ))}
                             </div>
                             <div>
                                 <Pagination
                                     moviesPerPage={moviesPerPage}
-                                    totalMovies={20}
+                                    totalMovies={totalMovies}
                                     paginate={paginate}
                                     currentPage={currentPage}
                                     totalPages={totalPages}
-                                    // totalPages={data?.total_page || 1}
                                     setCurrentPage={setCurrentPage}
                                 />
                             </div>

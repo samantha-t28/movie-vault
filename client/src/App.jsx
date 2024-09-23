@@ -24,7 +24,6 @@ function App() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const [totalResults, setTotalResults] = useState(0);
-    const moviesPerPage = 8;
 
     // const movies = await getServer();
 
@@ -57,7 +56,8 @@ function App() {
                                 <HomePage
                                     movies={movies}
                                     currentMovies={movies}
-                                    moviesPerPage={moviesPerPage}
+                                    // moviesPerPage={moviesPerPage}
+                                    // totalMovies={totalMovies}
                                     currentPage={currentPage}
                                     totalPages={totalPages}
                                     totalResults={totalResults}
@@ -71,7 +71,7 @@ function App() {
                             path="/search"
                             element={
                                 <SearchPage
-                                    moviesPerPage={moviesPerPage}
+                                    // moviesPerPage={moviesPerPage}
                                     movies={movies}
                                     paginate={paginate}
                                     currentPage={currentPage}
