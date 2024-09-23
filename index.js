@@ -26,7 +26,7 @@ async function popularMoviesHandler(request, response) {
     console.log('Page requested', page);
     try {
         const tmdbResponse = await fetch(
-            `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${page}`,
+            `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`,
             {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
@@ -35,14 +35,14 @@ async function popularMoviesHandler(request, response) {
         const tmdbResponseJSON = await tmdbResponse.json();
 
         // // Limit to 20 movies in total
-        // let allResults = tmdbResponseJSON.results.slice(0, 20);
+        let allResults = tmdbResponseJSON.results;
 
-        // // Calculate the range for the current page (e.g., 8 movies per page)
-        // const startIndex = (page - 1) * 8;
-        // const endIndex = page * 8;
-        // const paginatedResults = allResults.slice(startIndex, endIndex);
+        // Calculate the range for the current page (e.g., 8 movies per page)
+        const startIndex = (page - 1) * 8;
+        const endIndex = page * 8;
+        const paginatedResults = allResults.slice(startIndex, endIndex);
 
-        const parsedResults = tmdbResponseJSON.results.map(movie => {
+        const parsedResults = paginatedResults.map(movie => {
             let genreStorage = [];
             movie.genre_ids.map(genreId => {
                 // console.log('GID:', genreId);
@@ -61,8 +61,10 @@ async function popularMoviesHandler(request, response) {
         });
 
         tmdbResponseJSON.results = parsedResults;
+        tmdbResponseJSON.total_pages = 3;
+        tmdbResponseJSON.total_results = 20;
 
-        await sleep(3000);
+        // await sleep(3000);
         // Intentionally added throw new Error to test and display the error message
         // throw new Error('Render Error');
         response.send(tmdbResponseJSON);

@@ -41,8 +41,8 @@ export const HomePage = ({
     });
 
     // Calculate the first and last movie to display on the current page based on moviesPerPage
-    const startIndex = (currentPage - 1) * moviesPerPage;
-    const endIndex = startIndex + moviesPerPage;
+    // const startIndex = (currentPage - 1) * moviesPerPage;
+    // const endIndex = startIndex + moviesPerPage;
 
     // console.log(data);
     // console.log(error);
@@ -68,22 +68,16 @@ export const HomePage = ({
                     {data && data.results && (
                         <>
                             <div className="movies__grid">
-                                {data.results
-                                    .slice(startIndex, endIndex)
-                                    .map(movie => (
-                                        <MovieCard
-                                            key={movie.id}
-                                            title={movie.title}
-                                            year={
-                                                movie.release_date.split('-')[0]
-                                            }
-                                            image={movie.poster_path}
-                                            rating={movie.vote_average.toFixed(
-                                                1
-                                            )}
-                                            genre={movie.genres.join(', ')}
-                                        />
-                                    ))}
+                                {data.results.map(movie => (
+                                    <MovieCard
+                                        key={movie.id}
+                                        title={movie.title}
+                                        year={movie.release_date.split('-')[0]}
+                                        image={movie.poster_path}
+                                        rating={movie.vote_average.toFixed(1)}
+                                        genre={movie.genres.join(', ')}
+                                    />
+                                ))}
                             </div>
                             <div>
                                 <Pagination
