@@ -1,12 +1,13 @@
+import { useState } from 'react';
 import { Header } from './Header';
 import { MovieCard } from './MovieCard';
 import { Pagination } from './Pagination';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 
-const popularMovies = (currentPage, moviesPerPage) => {
+const popularMovies = currentPage => {
     console.log('popularMovies function called with currentPage:', currentPage);
     return (
-        fetch('/api')
+        fetch(`/api?page=${currentPage}`)
             // .then(response => response.json())
             .then(response => {
                 if (response.ok) {
@@ -22,23 +23,32 @@ const popularMovies = (currentPage, moviesPerPage) => {
     );
 };
 export const HomePage = ({
-    movies,
-    currentMovies,
-    currentPage,
-    moviesPerPage,
-    handleSearch,
+    moviesPerPage = 8,
     paginate,
-    setCurrentPage
+    currentPage,
+    handleSearch,
+    setCurrentPage,
+    totalResults,
+    totalPages,
+    totalMovies = 20
 }) => {
+    // Fetch popular movies using react-query
     console.log('HomePage component rendered');
     const { isLoading, isError, data, error, isFetching } = useQuery({
         queryKey: ['popularMovies', currentPage],
-        queryFn: () => popularMovies(currentPage, moviesPerPage),
+        queryFn: () => popularMovies(currentPage),
         keepPreviousData: true
     });
+
+    // Calculate the first and last movie to display on the current page based on moviesPerPage
+    const startIndex = (currentPage - 1) * moviesPerPage;
+    const endIndex = startIndex + moviesPerPage;
+
     // console.log(data);
     // console.log(error);
     // console.log('Show data:', data.total_results);
+
+    console.log('I am here with the data', data);
 
     return (
         <>
@@ -58,24 +68,31 @@ export const HomePage = ({
                     {data && data.results && (
                         <>
                             <div className="movies__grid">
-                                {data.results.map(movie => (
-                                    <MovieCard
-                                        key={movie.id}
-                                        title={movie.title}
-                                        year={movie.release_date.split('-')[0]}
-                                        image={movie.poster_path}
-                                        rating={movie.vote_average.toFixed(1)}
-                                        genre={movie.genres.join(', ')}
-                                    />
-                                ))}
+                                {data.results
+                                    .slice(startIndex, endIndex)
+                                    .map(movie => (
+                                        <MovieCard
+                                            key={movie.id}
+                                            title={movie.title}
+                                            year={
+                                                movie.release_date.split('-')[0]
+                                            }
+                                            image={movie.poster_path}
+                                            rating={movie.vote_average.toFixed(
+                                                1
+                                            )}
+                                            genre={movie.genres.join(', ')}
+                                        />
+                                    ))}
                             </div>
                             <div>
                                 <Pagination
                                     moviesPerPage={moviesPerPage}
-                                    totalMovies={data.total_results}
+                                    totalMovies={totalMovies}
                                     paginate={paginate}
                                     currentPage={currentPage}
-                                    totalPages={data?.total_pages || 1}
+                                    totalPages={totalPages}
+                                    setCurrentPage={setCurrentPage}
                                 />
                             </div>
                         </>

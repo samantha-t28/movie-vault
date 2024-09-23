@@ -12,6 +12,15 @@ export const Pagination = ({
 
     // Hold the numbers of each page
     const pageNumbers = [];
+    // const totalPageCount = totalPages;
+
+    // if (totalPageCount <= 8) {
+    //     for (let i = 0; i <= totalPageCount; i++) {
+    //         pageNumbers.push(i);
+    //     }
+    // } else {
+    //     pageNumbers.push(1, 2, 3);
+    // }
 
     for (let i = 1; i <= Math.ceil(totalMovies / moviesPerPage); i++) {
         pageNumbers.push(i);

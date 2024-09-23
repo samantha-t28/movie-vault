@@ -5,7 +5,7 @@ import { Header } from './Header';
 import { Pagination } from './Pagination';
 
 export const SearchPage = ({
-    moviesPerPage,
+    moviesPerPage = 20,
     paginate,
     currentPage,
     currentMovies,
