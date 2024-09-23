@@ -1,8 +1,10 @@
+import { usePaginationContext } from '../context/usePaginationContext';
+
 export const Pagination = ({
     moviesPerPage,
     totalMovies,
-    paginate,
-    currentPage,
+    // paginate,
+    // currentPage,
     totalPages
 }) => {
     console.log('Total Movies:', totalMovies);
@@ -10,6 +12,7 @@ export const Pagination = ({
 
     // console.log('Total Page Count:', totalPageCount);
 
+    const { currentPage, setCurrentPage } = usePaginationContext();
     // Hold the numbers of each page
     const pageNumbers = [];
 
@@ -20,14 +23,14 @@ export const Pagination = ({
     // If true, call the paginate function with current page minus 1
     const handlePrevClick = () => {
         if (currentPage > 1) {
-            paginate(currentPage - 1);
+            setCurrentPage(currentPage - 1);
         }
     };
     // Checks if current page number is less than the total number of pages.
     // If true, calls the paginate function with the current page # plus 1. Move to next page
     const handleNextClick = () => {
         if (currentPage < pageNumbers.length) {
-            paginate(currentPage + 1);
+            setCurrentPage(currentPage + 1);
         }
     };
 
@@ -62,7 +65,7 @@ export const Pagination = ({
                         }`}
                     >
                         <button
-                            onClick={() => paginate(number)}
+                            onClick={() => setCurrentPage(number)}
                             className="page-link"
                         >
                             {number}

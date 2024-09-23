@@ -6,6 +6,7 @@ import { SearchPage } from './components/SearchPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import './App.css';
+import { PaginationProvider } from './context/PaginationProvider';
 
 // Create a client
 // Create a QueryClient with default options
@@ -21,7 +22,7 @@ const queryClient = new QueryClient({
 
 function App() {
     const [movies, setMovies] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
+    // const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const [totalResults, setTotalResults] = useState(0);
 
@@ -42,47 +43,49 @@ function App() {
     // console.log('Movies on current page:', currentMovies.length); // Add this log to see the number of movies
 
     // Page change
-    const paginate = pageNumber => setCurrentPage(pageNumber);
+    // const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
         // Provide the client to your App
         <ThemeProvider>
-            <QueryClientProvider client={queryClient}>
-                <BrowserRouter>
-                    <Routes>
-                        <Route
-                            path="/"
-                            element={
-                                <HomePage
-                                    movies={movies}
-                                    currentMovies={movies}
-                                    currentPage={currentPage}
-                                    totalPages={totalPages}
-                                    totalResults={totalResults}
-                                    paginate={paginate}
-                                    handleSearch={handleSearch}
-                                    setCurrentPage={setCurrentPage}
-                                />
-                            }
-                        />
-                        <Route
-                            path="/search"
-                            element={
-                                <SearchPage
-                                    movies={movies}
-                                    paginate={paginate}
-                                    currentPage={currentPage}
-                                    currentMovies={movies}
-                                    totalResults={totalResults}
-                                    totalPages={totalPages}
-                                    handleSearch={handleSearch}
-                                    setCurrentPage={setCurrentPage}
-                                />
-                            }
-                        />
-                    </Routes>
-                </BrowserRouter>
-            </QueryClientProvider>
+            <PaginationProvider>
+                <QueryClientProvider client={queryClient}>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route
+                                path="/"
+                                element={
+                                    <HomePage
+                                        movies={movies}
+                                        currentMovies={movies}
+                                        // currentPage={currentPage}
+                                        totalPages={totalPages}
+                                        totalResults={totalResults}
+                                        // paginate={paginate}
+                                        handleSearch={handleSearch}
+                                        // setCurrentPage={setCurrentPage}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/search"
+                                element={
+                                    <SearchPage
+                                        movies={movies}
+                                        // paginate={paginate}
+                                        // currentPage={currentPage}
+                                        currentMovies={movies}
+                                        totalResults={totalResults}
+                                        totalPages={totalPages}
+                                        handleSearch={handleSearch}
+                                        // setCurrentPage={setCurrentPage}
+                                    />
+                                }
+                            />
+                        </Routes>
+                    </BrowserRouter>
+                </QueryClientProvider>
+            </PaginationProvider>
         </ThemeProvider>
     );
 }

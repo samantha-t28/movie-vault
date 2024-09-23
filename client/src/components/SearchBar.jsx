@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { usePaginationContext } from '../context/usePaginationContext';
 
-export const SearchBar = ({ onSearch, currentPage, setCurrentPage }) => {
+export const SearchBar = ({ onSearch }) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const searchQueryParameter = searchParams.get('movie') || ''; // Get parameter from the URL
     const [searchQuery, setSearchQuery] = useState(searchQueryParameter);
     const navigate = useNavigate();
+
+    const { currentPage, setCurrentPage } = usePaginationContext();
 
     // Trigger initial search when the component mounts, using the query from the URL
     useEffect(() => {

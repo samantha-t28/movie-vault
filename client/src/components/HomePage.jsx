@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { Header } from './Header';
 import { MovieCard } from './MovieCard';
 import { Pagination } from './Pagination';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import { usePaginationContext } from '../context/usePaginationContext';
+import {
+    PaginationContext,
+    PaginationProvider
+} from '../context/PaginationProvider';
 
 const popularMovies = currentPage => {
     console.log('popularMovies function called with currentPage:', currentPage);
@@ -24,14 +29,16 @@ const popularMovies = currentPage => {
 };
 export const HomePage = ({
     moviesPerPage = 8,
-    paginate,
-    currentPage,
+    // paginate,
+    // currentPage,
     handleSearch,
-    setCurrentPage,
+    // setCurrentPage,
     totalResults,
     totalPages,
     totalMovies = 20
 }) => {
+    // const { currentPage } = usePaginationContext();
+    const { currentPage } = useContext(PaginationContext);
     // Fetch popular movies using react-query
     console.log('HomePage component rendered');
     const { isLoading, isError, data, error, isFetching } = useQuery({
@@ -54,8 +61,8 @@ export const HomePage = ({
         <>
             <Header
                 onSearch={handleSearch}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
+                // currentPage={currentPage}
+                // setCurrentPage={setCurrentPage}
             />
             <main className="main-content" role="main">
                 <section
@@ -83,10 +90,10 @@ export const HomePage = ({
                                 <Pagination
                                     moviesPerPage={moviesPerPage}
                                     totalMovies={totalMovies}
-                                    paginate={paginate}
-                                    currentPage={currentPage}
+                                    // paginate={paginate}
+                                    // currentPage={currentPage}
                                     totalPages={totalPages}
-                                    setCurrentPage={setCurrentPage}
+                                    // setCurrentPage={setCurrentPage}
                                 />
                             </div>
                         </>

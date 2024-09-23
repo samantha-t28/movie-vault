@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MovieCard } from './MovieCard';
 import { Header } from './Header';
