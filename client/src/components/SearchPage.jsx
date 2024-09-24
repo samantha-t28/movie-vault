@@ -2,19 +2,22 @@ import { useSearchParams } from 'react-router-dom';
 import { MovieCard } from './MovieCard';
 import { Header } from './Header';
 import { Pagination } from './Pagination';
+import { usePaginationContext } from '../context/usePaginationContext';
 
 export const SearchPage = ({
     moviesPerPage = 20,
-    paginate,
-    currentPage,
+    // paginate,
+    // currentPage,
     currentMovies,
     totalResults,
     totalPages,
-    handleSearch,
-    setCurrentPage
+    handleSearch
+    // setCurrentPage
 }) => {
     const [searchParams] = useSearchParams();
     console.log(searchParams.get('movie'));
+
+    const { currentPage, setCurrentPage } = usePaginationContext();
 
     // console.log(searchResults);
     return (
@@ -50,9 +53,9 @@ export const SearchPage = ({
                         <Pagination
                             moviesPerPage={moviesPerPage}
                             totalMovies={totalResults}
-                            paginate={paginate}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
+                            // paginate={paginate}
+                            // currentPage={currentPage}
+                            // setCurrentPage={setCurrentPage}
                         />
                     </div>
                 </section>
