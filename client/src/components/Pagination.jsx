@@ -1,12 +1,6 @@
 import { usePaginationContext } from '../context/usePaginationContext';
 
-export const Pagination = ({
-    moviesPerPage,
-    totalMovies,
-    // paginate,
-    // currentPage,
-    totalPages
-}) => {
+export const Pagination = ({ moviesPerPage, totalMovies }) => {
     console.log('Total Movies:', totalMovies);
     console.log('Movies Per Page:', moviesPerPage);
 

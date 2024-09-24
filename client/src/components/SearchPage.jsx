@@ -6,13 +6,9 @@ import { usePaginationContext } from '../context/usePaginationContext';
 
 export const SearchPage = ({
     moviesPerPage = 20,
-    // paginate,
-    // currentPage,
     currentMovies,
     totalResults,
-    totalPages,
     handleSearch
-    // setCurrentPage
 }) => {
     const [searchParams] = useSearchParams();
     console.log(searchParams.get('movie'));
@@ -53,9 +49,6 @@ export const SearchPage = ({
                         <Pagination
                             moviesPerPage={moviesPerPage}
                             totalMovies={totalResults}
-                            // paginate={paginate}
-                            // currentPage={currentPage}
-                            // setCurrentPage={setCurrentPage}
                         />
                     </div>
                 </section>

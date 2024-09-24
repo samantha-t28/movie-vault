@@ -23,11 +23,7 @@ export const Header = ({ onSearch }) => {
                         />
                     </Link>
                     <div className="header__search-bar">
-                        <SearchBar
-                            onSearch={onSearch}
-                            // currentPage={currentPage}
-                            // setCurrentPage={setCurrentPage}
-                        />
+                        <SearchBar onSearch={onSearch} />
                     </div>
                     <div className="header__nav-icons">
                         <i className="fas fa-heart heart-icon"></i>

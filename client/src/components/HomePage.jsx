@@ -29,11 +29,7 @@ const popularMovies = currentPage => {
 };
 export const HomePage = ({
     moviesPerPage = 8,
-    // paginate,
-    // currentPage,
     handleSearch,
-    // setCurrentPage,
-    totalResults,
     totalPages,
     totalMovies = 20
 }) => {
@@ -47,10 +43,6 @@ export const HomePage = ({
         keepPreviousData: true
     });
 
-    // Calculate the first and last movie to display on the current page based on moviesPerPage
-    // const startIndex = (currentPage - 1) * moviesPerPage;
-    // const endIndex = startIndex + moviesPerPage;
-
     // console.log(data);
     // console.log(error);
     // console.log('Show data:', data.total_results);
@@ -59,11 +51,7 @@ export const HomePage = ({
 
     return (
         <>
-            <Header
-                onSearch={handleSearch}
-                // currentPage={currentPage}
-                // setCurrentPage={setCurrentPage}
-            />
+            <Header onSearch={handleSearch} />
             <main className="main-content" role="main">
                 <section
                     className="movies"
@@ -90,10 +78,7 @@ export const HomePage = ({
                                 <Pagination
                                     moviesPerPage={moviesPerPage}
                                     totalMovies={totalMovies}
-                                    // paginate={paginate}
-                                    // currentPage={currentPage}
                                     totalPages={totalPages}
-                                    // setCurrentPage={setCurrentPage}
                                 />
                             </div>
                         </>
