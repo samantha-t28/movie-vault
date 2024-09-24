@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { Header } from './Header';
 import { MovieCard } from './MovieCard';
 import { Pagination } from './Pagination';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import { usePaginationContext } from '../context/usePaginationContext';
+import {
+    PaginationContext,
+    PaginationProvider
+} from '../context/PaginationProvider';
 
 const popularMovies = currentPage => {
     console.log('popularMovies function called with currentPage:', currentPage);
@@ -24,14 +29,12 @@ const popularMovies = currentPage => {
 };
 export const HomePage = ({
     moviesPerPage = 8,
-    paginate,
-    currentPage,
     handleSearch,
-    setCurrentPage,
-    totalResults,
     totalPages,
     totalMovies = 20
 }) => {
+    // const { currentPage } = usePaginationContext();
+    const { currentPage } = useContext(PaginationContext);
     // Fetch popular movies using react-query
     console.log('HomePage component rendered');
     const { isLoading, isError, data, error, isFetching } = useQuery({
@@ -39,10 +42,6 @@ export const HomePage = ({
         queryFn: () => popularMovies(currentPage),
         keepPreviousData: true
     });
-
-    // Calculate the first and last movie to display on the current page based on moviesPerPage
-    // const startIndex = (currentPage - 1) * moviesPerPage;
-    // const endIndex = startIndex + moviesPerPage;
 
     // console.log(data);
     // console.log(error);
@@ -52,11 +51,7 @@ export const HomePage = ({
 
     return (
         <>
-            <Header
-                onSearch={handleSearch}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-            />
+            <Header onSearch={handleSearch} />
             <main className="main-content" role="main">
                 <section
                     className="movies"
@@ -83,10 +78,7 @@ export const HomePage = ({
                                 <Pagination
                                     moviesPerPage={moviesPerPage}
                                     totalMovies={totalMovies}
-                                    paginate={paginate}
-                                    currentPage={currentPage}
                                     totalPages={totalPages}
-                                    setCurrentPage={setCurrentPage}
                                 />
                             </div>
                         </>

@@ -3,7 +3,7 @@ import { SearchBar } from './SearchBar';
 import { ThemeToggle } from './ThemeToggle';
 import { useTheme } from '../context/useTheme';
 
-export const Header = ({ onSearch, currentPage, setCurrentPage }) => {
+export const Header = ({ onSearch }) => {
     const { theme } = useTheme();
 
     return (
@@ -23,11 +23,7 @@ export const Header = ({ onSearch, currentPage, setCurrentPage }) => {
                         />
                     </Link>
                     <div className="header__search-bar">
-                        <SearchBar
-                            onSearch={onSearch}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
-                        />
+                        <SearchBar onSearch={onSearch} />
                     </div>
                     <div className="header__nav-icons">
                         <i className="fas fa-heart heart-icon"></i>
