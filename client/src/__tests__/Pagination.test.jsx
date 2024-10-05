@@ -101,7 +101,7 @@ describe('Pagination Component', () => {
     it('should go to the previous page on Previous button click', () => {
         const mockSetCurrentPage = vi.fn();
         usePaginationContext.mockReturnValue({
-            currentPage: 5,
+            currentPage: 4,
             setCurrentPage: mockSetCurrentPage
         });
 
@@ -110,6 +110,6 @@ describe('Pagination Component', () => {
         const prevButton = screen.getByLabelText('Previous Page');
         fireEvent.click(prevButton);
 
-        expect(mockSetCurrentPage).toHaveBeenCalledWith(4);
+        expect(mockSetCurrentPage).toHaveBeenCalledWith(3);
     });
 });
