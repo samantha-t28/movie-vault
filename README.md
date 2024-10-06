@@ -349,3 +349,47 @@ Provides instant updates.
 
 - Automatically restarts Node.js application when it detect file changes.
 - Eliminate the needs to manually stop and restart the server during development.
+
+# What React Context are useful for and when to use it
+
+* React Context is useful for storing all the data, props and share state globally across multiiple components.
+* Eliminates prop drilling (manually pass props through every component).
+
+### Example when NOT using React Context:
+<img width="802" alt="Screenshot 2024-10-06 at 11 22 03 AM" src="https://github.com/user-attachments/assets/5d9c278b-3d11-4ee7-aa1d-bd0f22ce2524">
+
+In the above image, `currentPage`, `setCurrentPage`,and `paginate` were passed as props between components (prop drilling).
+
+* This makes it hard to manage and it's prone to human error since you're manually changing the props in every component file.
+
+### Example when Using React Context
+
+#### PaginateProvider.jsx
+<img width="305" alt="Screenshot 2024-10-06 at 11 37 42 AM" src="https://github.com/user-attachments/assets/b3932d70-55f3-41f9-b7c7-72cbd1047b42">
+
+* `createContext()` function is used to create the `PaginationContext`.
+* It allows components to access shared state (`currentPage` and `setCurrentPage`).
+* `PaginationProvider`: A context provider component that wraps its child components (`paginate`).
+
+### Purpose:
+* Manages paginate state (`currentPage` and `setCurrentPage`).
+* Makes this state accessible to any component within `PaginateProvider`.
+* Child components can use `useContext(PaginateContext)` to access and modify `currentPage` directly.
+
+# What Does the `usePaginationContext` Custom React Hook Does?
+
+```javascript
+import { useContext } from 'react';
+import { PaginationContext } from './PaginationProvider';
+
+export const usePaginationContext = () => useContext(PaginationContext);
+```
+
+* The hook retrieves the data from `PaginationContext`.
+> data includes `currentPage` (page number) and `setcurrentPage` (function to update the page)
+* `usePaginationContext` wraps `useContext(PaginationContext)` to provide an easy and reusable way to access the `PaginationContext` in any component that needs it.
+
+# What is `useContext`?
+
+* Allows component to consume the data from a context.
+* Retrieves the data provided by a context's `Provider`, allowing you to access the context without needing to pass props through component trees.
