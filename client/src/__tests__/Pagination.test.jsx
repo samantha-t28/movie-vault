@@ -16,15 +16,23 @@ vi.mock('../context/usePaginationContext', () => ({
 }));
 
 describe('Pagination Component', () => {
-    const renderPagination = () =>
+    const renderPagination = props =>
         render(
             <PaginationProvider>
-                <Pagination moviesPerPage={8} totalMovies={20} />
+                <Pagination moviesPerPage={8} totalMovies={20} {...props} />
             </PaginationProvider>
         );
-    it('should update the current page when a page number is clicked', () => {
-        renderPagination();
+    it('should render 4 movies per page when movies per page equals to 4', () => {
+        const result = renderPagination({ moviesPerPage: 4 });
+        // This will log a URL in the terminal
+        // screen.logTestingPlaygroundURL();
+        expect(screen.getAllByRole('button')).toHaveLength(7);
+    });
 
+    it('should update the current page when a page number is clicked', () => {
+        const result = renderPagination();
+        // This outputs the component's current DOM structure to the console.
+        // result.debug();
         const pageOneButton = screen.getByText('1');
         fireEvent.click(pageOneButton);
     });

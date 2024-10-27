@@ -10,6 +10,7 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
     for (let i = 1; i <= Math.ceil(totalMovies / moviesPerPage); i++) {
         pageNumbers.push(i);
     }
+    // pageNumbers.pop();
     // Checks if current page is greater than 1.
     // If true, call the paginate function with current page minus 1
     const handlePrevClick = () => {
