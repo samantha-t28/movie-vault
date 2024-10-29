@@ -393,3 +393,19 @@ export const usePaginationContext = () => useContext(PaginationContext);
 
 * Allows component to consume the data from a context.
 * Retrieves the data provided by a context's `Provider`, allowing you to access the context without needing to pass props through component trees.
+
+# Two Methods of Debugging Tests 
+## 1. Call the `debug()` method
+* `debug()` logs the current HTML structure of the rendered component's DOM to the console.
+* It helps you inspect the elements, attributes, and content currently rendered in the DOM.
+
+#### Example:
+<img width="565" alt="Screenshot 2024-10-29 at 2 49 18 AM" src="https://github.com/user-attachments/assets/0091592e-cec2-4a09-9ac2-cdc5405fe12f">
+
+## 2. Use `screen.logTestingPlaygroundURL()`
+
+This function logs and returns a URL to the [Testing Playground](https://testing-playground.com/)
+website, which provides a visual representation of the current DOM.
+* Call `screen.logTestingPlaygroundURL()` within your test at the point where you want to inspect the DOM.
+* When the test runs, it prints a URL in your terminal that links to Testing Playground, allowing you to see the DOM structure visually.
+* Provides suggestions for the most efficient and reliable queries to target specific elements in your tests, helping you select elements based on accessibility best practices.
