@@ -1,3 +1,4 @@
+import axios from 'axios';
 import express from 'express';
 import dotenv from 'dotenv';
 import { setTimeout as sleep } from 'node:timers/promises';
@@ -25,14 +26,24 @@ async function popularMoviesHandler(request, response) {
     // const { query, currentPage } = request.body;
     console.log('Page requested', page);
     try {
-        const tmdbResponse = await fetch(
-            `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`,
+        const tmdbResponse = await axios.get(
+            // `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`,
+            `https://api.themoviedb.org/3/movie/popular`,
             {
-                method: 'GET',
+                params: {
+                    api_key: process.env.TMDB_API_KEY,
+                    language: 'en-US',
+                    page: 1
+                },
+                // Remove GET in config because `axios.get` already implies the GET method
+                // method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
             }
         );
-        const tmdbResponseJSON = await tmdbResponse.json();
+
+        // Remove 'await' and 'json()'
+        // Axios automatically parses the JSON response, so there’s no need to call .json() on it.
+        const tmdbResponseJSON = tmdbResponse.data;
 
         // // Limit to 20 movies in total
         let allResults = tmdbResponseJSON.results;
@@ -88,16 +99,30 @@ async function searchHandler(request, response) {
     }
 
     try {
-        const tmdbResponse = await fetch(
-            `https://api.themoviedb.org/3/search/movie?api_key=${
-                process.env.TMDB_API_KEY
-            }&query=${query}&page=${currentPage || 1}`,
+        const tmdbResponse = await axios.get(
+            //
+            // `https://api.themoviedb.org/3/search/movie?api_key=${
+            //     process.env.TMDB_API_KEY
+            // }&query=${query}&page=${currentPage || 1}`,
+            // {
+            //     // method: 'GET',
+            //     headers: { 'Content-Type': 'application/json' }
+            // }
+
+            // Axios `params` for cleaner and more secure query parameter handling.
+            `https://api.themoviedb.org/3/search/movie`,
             {
-                method: 'GET',
+                param: {
+                    api_key: process.env.TMDB_API_KEY,
+                    query: query,
+                    page: currentPage || 1
+                },
                 headers: { 'Content-Type': 'application/json' }
             }
         );
-        const tmdbResponseJSON = await tmdbResponse.json();
+
+        // const tmdbResponseJSON = await tmdbResponse.json();
+        const tmdbResponseJSON = tmdbResponse.data;
 
         const parsedResults = tmdbResponseJSON.results.map(movie => {
             let genreStorage = [];
