@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
+test('should display search results for "James Bond"', async ({ page }) => {
     await page.goto('http://localhost:5173/');
     await page.getByPlaceholder('Search for movies or actors').click();
     // await page.goto('http://localhost:5173/?movie=james+bon');
