@@ -27,3 +27,12 @@ test('should display "No results found" message when no results are returned', a
     await page.getByPlaceholder('Search for movies or actors').press('Enter');
     await expect(page.locator('h2')).toContainText('No results found for');
 });
+
+test('should hide pagination control when no results are found', async ({
+    page
+}) => {
+    await page.getByPlaceholder('Search for movies or actors').fill('xyz123');
+    await page.getByPlaceholder('Search for movies or actors').press('Enter');
+    const pagination = page.locator('.pagination');
+    await expect(pagination).toBeHidden();
+});
