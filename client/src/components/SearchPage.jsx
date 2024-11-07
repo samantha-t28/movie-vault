@@ -29,28 +29,33 @@ export const SearchPage = ({
                     aria-labelledby="search-results-title"
                 >
                     <h2 className="movies__title">
-                        Displaying {totalResults} Results for "
-                        {searchParams.get('movie')}"
+                        {totalResults > 0
+                            ? `Displaying ${totalResults} Results for "
+                        ${searchParams.get('movie')}"`
+                            : `No results found for "${searchParams.get(
+                                  'movie'
+                              )}"`}
                     </h2>
-
-                    <div className="movies__grid">
-                        {currentMovies.map(movie => (
-                            <MovieCard
-                                key={movie.id}
-                                title={movie.title}
-                                year={movie.release_date.split('-')[0]}
-                                image={movie.poster_path}
-                                rating={movie.vote_average.toFixed(1)}
-                                genre={movie.genres.join(', ')}
-                            />
-                        ))}
-                    </div>
-                    <div>
+                    {totalResults > 0 && (
+                        <div className="movies__grid">
+                            {currentMovies.map(movie => (
+                                <MovieCard
+                                    key={movie.id}
+                                    title={movie.title}
+                                    year={movie.release_date.split('-')[0]}
+                                    image={movie.poster_path}
+                                    rating={movie.vote_average.toFixed(1)}
+                                    genre={movie.genres.join(', ')}
+                                />
+                            ))}
+                        </div>
+                    )}
+                    {totalResults > 0 && (
                         <Pagination
                             moviesPerPage={moviesPerPage}
                             totalMovies={totalResults}
                         />
-                    </div>
+                    )}
                 </section>
             </main>
         </>

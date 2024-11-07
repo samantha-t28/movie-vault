@@ -40,7 +40,6 @@ async function popularMoviesHandler(request, response) {
                 headers: { 'Content-Type': 'application/json' }
             }
         );
-
         // Remove 'await' and 'json()'
         // Axios automatically parses the JSON response, so there’s no need to call .json() on it.
         const tmdbResponseJSON = tmdbResponse.data;
@@ -112,7 +111,7 @@ async function searchHandler(request, response) {
             // Axios `params` for cleaner and more secure query parameter handling.
             `https://api.themoviedb.org/3/search/movie`,
             {
-                param: {
+                params: {
                     api_key: process.env.TMDB_API_KEY,
                     query: query,
                     page: currentPage || 1
