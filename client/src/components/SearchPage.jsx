@@ -36,25 +36,26 @@ export const SearchPage = ({
                                   'movie'
                               )}"`}
                     </h2>
-
-                    <div className="movies__grid">
-                        {currentMovies.map(movie => (
-                            <MovieCard
-                                key={movie.id}
-                                title={movie.title}
-                                year={movie.release_date.split('-')[0]}
-                                image={movie.poster_path}
-                                rating={movie.vote_average.toFixed(1)}
-                                genre={movie.genres.join(', ')}
-                            />
-                        ))}
-                    </div>
-                    <div>
+                    {totalResults > 0 && (
+                        <div className="movies__grid">
+                            {currentMovies.map(movie => (
+                                <MovieCard
+                                    key={movie.id}
+                                    title={movie.title}
+                                    year={movie.release_date.split('-')[0]}
+                                    image={movie.poster_path}
+                                    rating={movie.vote_average.toFixed(1)}
+                                    genre={movie.genres.join(', ')}
+                                />
+                            ))}
+                        </div>
+                    )}
+                    {totalResults > 0 && (
                         <Pagination
                             moviesPerPage={moviesPerPage}
                             totalMovies={totalResults}
                         />
-                    </div>
+                    )}
                 </section>
             </main>
         </>
