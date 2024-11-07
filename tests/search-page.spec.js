@@ -36,3 +36,30 @@ test('should hide pagination control when no results are found', async ({
     const pagination = page.locator('.pagination');
     await expect(pagination).toBeHidden();
 });
+
+test('should return the same results regardless of case in search query', async ({
+    page
+}) => {
+    // Search in lowercase
+    await page.getByPlaceholder('Search for movies or actors').click();
+    await page
+        .getByPlaceholder('Search for movies or actors')
+        .fill('james bond');
+    await page.getByPlaceholder('Search for movies or actors').press('Enter');
+    const lowerCaseResults = await page
+        .locator('.movies__grid')
+        .allTextContents();
+
+    // Clear search and perform the same search in uppercase
+    await page.getByPlaceholder('Search for movies or actors').fill('');
+    await page
+        .getByPlaceholder('Search for movies or actors')
+        .fill('JAMES BOND');
+    await page.getByPlaceholder('Search for movies or actors').press('Enter');
+    const upperCaseResults = await page
+        .locator('.movies__grid')
+        .allTextContents();
+
+    // Verify that both searches return the same results
+    expect(lowerCaseResults).toEqual(upperCaseResults);
+});
