@@ -29,8 +29,12 @@ export const SearchPage = ({
                     aria-labelledby="search-results-title"
                 >
                     <h2 className="movies__title">
-                        Displaying {totalResults} Results for "
-                        {searchParams.get('movie')}"
+                        {totalResults > 0
+                            ? `Displaying ${totalResults} Results for "
+                        ${searchParams.get('movie')}"`
+                            : `No results found for "${searchParams.get(
+                                  'movie'
+                              )}"`}
                     </h2>
 
                     <div className="movies__grid">

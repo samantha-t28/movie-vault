@@ -12,3 +12,18 @@ test('should display search results for "James Bond"', async ({ page }) => {
     await page.getByPlaceholder('Search for movies or actors').press('Enter');
     await expect(page.locator('h2')).toContainText('Results for "james bond"');
 });
+
+test('should navigate to Home Page after clicking the logo', async ({
+    page
+}) => {
+    await page.getByRole('link', { name: 'Movie Vault logo' }).click();
+    await expect(page).toHaveURL('https://localhost:5173');
+});
+
+test('should display "No results found" message when no results are returned', async ({
+    page
+}) => {
+    await page.getByPlaceholder('Search for movies or actors').fill('xyz123');
+    await page.getByPlaceholder('Search for movies or actors').press('Enter');
+    await expect(page.locator('h2')).toContainText('No results found for');
+});
