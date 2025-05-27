@@ -4,12 +4,22 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
     // console.log('Total Page Count:', totalPageCount);
 
     const { currentPage, setCurrentPage } = usePaginationContext();
+    // Calculate how many pages is needed
+    const totalPages = Math.ceil(totalMovies / moviesPerPage);
     // Hold the numbers of each page
     const pageNumbers = [];
 
-    for (let i = 1; i <= Math.ceil(totalMovies / moviesPerPage); i++) {
+    // Show only first 6 pages
+    const maxVisiblePages = 6;
+
+    // Only show page numbers up to the smaller of totalPages or maxVisiblePages
+    for (let i = 1; i <= Math.min(totalPages, maxVisiblePages); i++) {
         pageNumbers.push(i);
     }
+
+    // for (let i = 1; i <= Math.ceil(totalMovies / moviesPerPage); i++) {
+    //     pageNumbers.push(i);
+    // }
     // pageNumbers.pop();
     // Checks if current page is greater than 1.
     // If true, call the paginate function with current page minus 1
@@ -21,7 +31,7 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
     // Checks if current page number is less than the total number of pages.
     // If true, calls the paginate function with the current page # plus 1. Move to next page
     const handleNextClick = () => {
-        if (currentPage < pageNumbers.length) {
+        if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
         }
     };
@@ -64,10 +74,18 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
                         </button>
                     </li>
                 ))}
+                {/** Static Ellipsis Button - logic not implemented yet */}
+                {totalPages > maxVisiblePages && (
+                    <li className="page-item">
+                        <span className="page-link" aria-hidden="true">
+                            ...
+                        </span>
+                    </li>
+                )}
                 {/** <li> element checks if current page is the last page. If true, add 'disabled' class */}
                 <li
                     className={`page-item ${
-                        currentPage === pageNumbers.length ? 'disabled' : ''
+                        currentPage === totalPages ? 'disabled' : ''
                     }`}
                 >
                     {/** Next Page Button */}
@@ -76,7 +94,7 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
                         aria-label="Next Page"
                         onClick={handleNextClick}
                         className="page-link"
-                        disabled={currentPage === pageNumbers.length}
+                        disabled={currentPage === totalPages}
                     >
                         <i className="fa-solid fa-arrow-right"></i>
                     </button>
