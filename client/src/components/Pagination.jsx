@@ -59,6 +59,7 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
                 {/** Page Button */}
                 {/* iterates over the pageNumbers array and creates a button for each page number */}
                 {/** <li> element received 'active' class if it matches the 'currentPage' */}
+                {/** Render initial visiable pages */}
                 {pageNumbers.map(number => (
                     <li
                         key={number}
@@ -74,12 +75,27 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
                         </button>
                     </li>
                 ))}
-                {/** Static Ellipsis Button - logic not implemented yet */}
+                {/** Render ellipsis */}
                 {totalPages > maxVisiblePages && (
                     <li className="page-item">
                         <span className="page-link" aria-hidden="true">
                             ...
                         </span>
+                    </li>
+                )}
+                {/** Render last page */}
+                {totalPages > maxVisiblePages && (
+                    <li
+                        className={`page-item ${
+                            currentPage === totalPages ? 'active' : ''
+                        }`}
+                    >
+                        <button
+                            onClick={() => setCurrentPage(totalPages)}
+                            className="page-link"
+                        >
+                            {totalPages}
+                        </button>
                     </li>
                 )}
                 {/** <li> element checks if current page is the last page. If true, add 'disabled' class */}
@@ -103,3 +119,9 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
         </nav>
     );
 };
+
+// When page moves beyond page 6, shift the page numbers forward ( < 2 3 4 5 6 7 ... 10 >)
+// When page 10 is selected, display previous page numbers  < 1 ... 5 6 7 8 9 10 >
+
+// Always display up to 6 pages
+// IF more than 6, display ellipsis and the last page
