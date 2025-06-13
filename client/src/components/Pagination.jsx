@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react';
 import { usePaginationContext } from '../context/usePaginationContext';
 
 export const Pagination = ({ moviesPerPage, totalMovies }) => {
-    // console.log('Total Page Count:', totalPageCount);
-    console.log('--- Pagination Component is Rendering ---');
     const { currentPage, setCurrentPage } = usePaginationContext();
     // Calculate how many pages is needed
     const totalPages = Math.ceil(totalMovies / moviesPerPage);
 
     // Use useState to store page number and render pages dynamically
     const [pageNumbers, setPageNumbers] = useState([]);
+
     useEffect(() => {
         // Case 1: Not enough pages to need complex logic (Using the for loop method)
         if (totalPages < 7) {
@@ -46,9 +45,11 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
         setPageNumbers([
             1,
             '...',
+            currentPage - 2,
             currentPage - 1,
             currentPage,
             currentPage + 1,
+            currentPage + 2,
             '...',
             totalPages
         ]);
@@ -139,9 +140,3 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
         </nav>
     );
 };
-
-// When page moves beyond page 6, shift the page numbers forward ( < 2 3 4 5 6 7 ... 10 >)
-// When page 10 is selected, display previous page numbers  < 1 ... 5 6 7 8 9 10 >
-
-// Always display up to 6 pages
-// IF more than 6, display ellipsis and the last page
