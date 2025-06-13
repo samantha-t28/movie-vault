@@ -1,18 +1,60 @@
+import { useState, useEffect } from 'react';
 import { usePaginationContext } from '../context/usePaginationContext';
 
 export const Pagination = ({ moviesPerPage, totalMovies }) => {
-    // console.log('Total Page Count:', totalPageCount);
-
     const { currentPage, setCurrentPage } = usePaginationContext();
-    // Hold the numbers of each page
-    const pageNumbers = [];
+    // Calculate how many pages is needed
+    const totalPages = Math.ceil(totalMovies / moviesPerPage);
 
-    for (let i = 1; i <= Math.ceil(totalMovies / moviesPerPage); i++) {
-        pageNumbers.push(i);
-    }
-    // pageNumbers.pop();
-    // Checks if current page is greater than 1.
-    // If true, call the paginate function with current page minus 1
+    // Use useState to store page number and render pages dynamically
+    const [pageNumbers, setPageNumbers] = useState([]);
+
+    useEffect(() => {
+        // Case 1: Not enough pages to need complex logic (Using the for loop method)
+        if (totalPages < 7) {
+            const pages = []; // Create an empty array
+            for (let i = 1; i <= totalPages; i++) {
+                pages.push(i); // Fill it
+            }
+            setPageNumbers(pages); // Set the state
+            return;
+        }
+
+        // Case 2: Current page is near the beginning
+        if (currentPage <= 4) {
+            setPageNumbers([1, 2, 3, 4, 5, 6, '...', totalPages]);
+            return;
+        }
+
+        // Case 3: Current page is near the end
+        if (currentPage >= totalPages - 3) {
+            setPageNumbers([
+                1,
+                '...',
+                totalPages - 5,
+                totalPages - 4,
+                totalPages - 3,
+                totalPages - 2,
+                totalPages - 1,
+                totalPages
+            ]);
+            return;
+        }
+
+        // Case 4: Current page is in the middle
+        setPageNumbers([
+            1,
+            '...',
+            currentPage - 2,
+            currentPage - 1,
+            currentPage,
+            currentPage + 1,
+            currentPage + 2,
+            '...',
+            totalPages
+        ]);
+    }, [currentPage, totalPages]);
+
     const handlePrevClick = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
@@ -21,7 +63,7 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
     // Checks if current page number is less than the total number of pages.
     // If true, calls the paginate function with the current page # plus 1. Move to next page
     const handleNextClick = () => {
-        if (currentPage < pageNumbers.length) {
+        if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
         }
     };
@@ -49,25 +91,38 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
                 {/** Page Button */}
                 {/* iterates over the pageNumbers array and creates a button for each page number */}
                 {/** <li> element received 'active' class if it matches the 'currentPage' */}
-                {pageNumbers.map(number => (
-                    <li
-                        key={number}
-                        className={`page-item ${
-                            currentPage === number ? 'active' : ''
-                        }`}
-                    >
-                        <button
-                            onClick={() => setCurrentPage(number)}
-                            className="page-link"
+                {/** Render initial visiable pages */}
+                {pageNumbers.map((page, index) => {
+                    if (page === '...') {
+                        return (
+                            <li
+                                key={`ellipsis-${index}`}
+                                className="page-item disabled"
+                            >
+                                <span className="page-link">...</span>
+                            </li>
+                        );
+                    }
+                    return (
+                        <li
+                            key={page}
+                            className={`page-item ${
+                                currentPage === page ? 'active' : ''
+                            }`}
                         >
-                            {number}
-                        </button>
-                    </li>
-                ))}
+                            <button
+                                onClick={() => setCurrentPage(page)}
+                                className="page-link"
+                            >
+                                {page}
+                            </button>
+                        </li>
+                    );
+                })}
                 {/** <li> element checks if current page is the last page. If true, add 'disabled' class */}
                 <li
                     className={`page-item ${
-                        currentPage === pageNumbers.length ? 'disabled' : ''
+                        currentPage === totalPages ? 'disabled' : ''
                     }`}
                 >
                     {/** Next Page Button */}
@@ -76,7 +131,7 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
                         aria-label="Next Page"
                         onClick={handleNextClick}
                         className="page-link"
-                        disabled={currentPage === pageNumbers.length}
+                        disabled={currentPage === totalPages}
                     >
                         <i className="fa-solid fa-arrow-right"></i>
                     </button>
