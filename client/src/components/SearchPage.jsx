@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MovieCard } from './MovieCard';
 import { Header } from './Header';
@@ -13,9 +14,35 @@ export const SearchPage = ({
     const [searchParams] = useSearchParams();
     console.log(searchParams.get('movie'));
 
+    const searchQuery = searchParams.get('movie');
     const { currentPage, setCurrentPage } = usePaginationContext();
 
+    useEffect(() => {
+        if (searchQuery) {
+            const fetchSearchResults = async () => {
+                try {
+                    const response = await fetch('/api', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            query: searchQuery,
+                            currentPage: currentPage
+                        })
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        handleSearch(data);
+                    }
+                } catch (error) {
+                    console.error('Error fetching search results:', error);
+                }
+            };
+            fetchSearchResults();
+        }
+    }, [searchQuery, currentPage]);
+
     // console.log(searchResults);
+
     return (
         <>
             <Header
