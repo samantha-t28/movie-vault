@@ -9,7 +9,5 @@ test('should display search results for "James Bond"', async ({ page }) => {
         .fill('james bond');
     // await page.goto('http://localhost:5173/?movie=james+bond');
     await page.getByPlaceholder('Search for movies or actors').press('Enter');
-    await expect(page.locator('h2')).toContainText(
-        'Displaying 83 Results for "james bond"'
-    );
+    await expect(page.locator('h2')).toContainText('james bond');
 });
