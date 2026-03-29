@@ -11,9 +11,6 @@ export const SearchBar = ({ onSearch }) => {
     const { currentPage, setCurrentPage } = usePaginationContext();
 
     // Trigger initial search when the component mounts, using the query from the URL
-    useEffect(() => {
-        handleSearch();
-    }, [currentPage]);
 
     useEffect(() => {
         setCurrentPage(1);
@@ -21,8 +18,6 @@ export const SearchBar = ({ onSearch }) => {
 
     const handleInputChange = event => {
         setSearchQuery(event.target.value);
-        // Updates the URL's query parameters with the current search input value
-        setSearchParams({ movie: event.target.value });
     };
 
     const handleSearch = async event => {
