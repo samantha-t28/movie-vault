@@ -2,7 +2,7 @@ import axios from 'axios';
 import express from 'express';
 import dotenv from 'dotenv';
 import { setTimeout as sleep } from 'node:timers/promises';
-import genresList from './server/genre.json' assert { type: 'json' };
+import genresList from './genre.json' assert { type: 'json' };
 
 dotenv.config();
 
